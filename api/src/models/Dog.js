@@ -46,7 +46,7 @@ module.exports = (sequelize) => {
         defaultValue:
           'https://static.vecteezy.com/system/resources/previews/001/200/028/original/dog-png.png',
       },
-
+      //Temperament viene de la relación.
       db: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

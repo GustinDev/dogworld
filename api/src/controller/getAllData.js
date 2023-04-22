@@ -8,7 +8,7 @@ const getApiData = async () => {
     'https://api.thedogapi.com/v1/breeds?api_key=live_VeT7Mtm1gH9ai3BitHdzZBiyuHozqNG6ZfE1ltpsmKThC4Z5zTWrFYvOavKXTCYOs'
   );
 
-  //Metric -> Imperial.
+  //Recogemos la data del API.
 
   let dogsData = await dogsApiUrl.data.map((dog) => {
     return {
@@ -24,6 +24,8 @@ const getApiData = async () => {
   });
   return dogsData;
 };
+
+//Recogemos la data de la DB.
 
 const getDbData = async () => {
   let dogDb = await Dog.findAll({
@@ -54,6 +56,8 @@ const getDbData = async () => {
   });
   return mappedDog;
 };
+
+//Unimos la data y la retornamos.
 
 const getAllData = async () => {
   let apiData = await getApiData();

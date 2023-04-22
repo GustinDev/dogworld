@@ -46,7 +46,7 @@ const getDbData = async () => {
       lifespan: dog.lifespan,
       image: dog.image,
       db: dog.db,
-      height: `${dog.height_min} - ${dog.height_max}`,
+      height: `${dog.maximun_height} - ${dog.minimun_height}`,
       temperament: dog.temperaments
         .map((e) => {
           return e.name;

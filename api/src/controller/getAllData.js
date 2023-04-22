@@ -1,15 +1,18 @@
-//https://api.thedogapi.com/v1/breeds?api_key=live_VeT7Mtm1gH9ai3BitHdzZBiyuHozqNG6ZfE1ltpsmKThC4Z5zTWrFYvOavKXTCYO
-
+//API KEY
+require('dotenv').config();
+const { API_KEY } = process.env;
+//Axios
 const axios = require('axios');
+//Importamos las tablas:
 const { Dog, Temperament } = require('../db');
 
+//API.
 const getApiData = async () => {
+  //Traemos la data con axios.
   const dogsApiUrl = await axios.get(
-    'https://api.thedogapi.com/v1/breeds?api_key=live_VeT7Mtm1gH9ai3BitHdzZBiyuHozqNG6ZfE1ltpsmKThC4Z5zTWrFYvOavKXTCYOs'
+    'https://api.thedogapi.com/v1/breeds?api_key=' + API_KEY
   );
-
-  //Recogemos la data del API.
-
+  //Mapeamos la data, por cada dog retorna lo que queremos (igual que la DB).
   let dogsData = await dogsApiUrl.data.map((dog) => {
     return {
       id: dog.id,
@@ -22,12 +25,14 @@ const getApiData = async () => {
       image: dog.image.url,
     };
   });
+  //Retornamos la data limpia.
   return dogsData;
 };
 
-//Recogemos la data de la DB.
+//DB.
 
 const getDbData = async () => {
+  //Le pedimos que nos traigo todo de la tabla Dog (junto con la relación con Temp).
   let dogDb = await Dog.findAll({
     include: {
       model: Temperament,
@@ -37,6 +42,7 @@ const getDbData = async () => {
       },
     },
   });
+  //Mapeamos la data para organizarla como queremos (igual que la API).
   mappedDog = dogDb.map((dog) => {
     return {
       id: dog.id,
@@ -54,6 +60,7 @@ const getDbData = async () => {
         .join(','),
     };
   });
+  //Retornamos la data limpia.
   return mappedDog;
 };
 

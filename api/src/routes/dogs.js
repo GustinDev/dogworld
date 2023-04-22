@@ -1,13 +1,18 @@
+//Standard Imports
 const { Router } = require('express');
 const axios = require('axios');
-const e = require('express');
 const router = Router();
+
+//API KEY
+require('dotenv').config();
+const { API_KEY } = process.env;
 
 //Data & Models
 const { getAllData } = require('../controller/getAllData');
 const { Dog, Temperament } = require('../db');
-//Models
-const { Sequelize, Model } = require('sequelize');
+//const { Sequelize, Model } = require('sequelize');
+
+//ROUTES:
 
 //GET ALL DOGs - GET QUERY ?NAME=
 
@@ -59,7 +64,7 @@ router.get('/temperaments', async (req, res) => {
   try {
     //Traemos TODA la data del api.
     const api = await axios.get(
-      'https://api.thedogapi.com/v1/breeds?api_key=live_VeT7Mtm1gH9ai3BitHdzZBiyuHozqNG6ZfE1ltpsmKThC4Z5zTWrFYvOavKXTCYOs'
+      'https://api.thedogapi.com/v1/breeds?api_key=' + API_KEY
     );
     //Sacamos los temperament de casa objeto.
     //Quedan: "Curious, Playful", "Independent, Happy"

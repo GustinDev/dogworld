@@ -4,7 +4,6 @@ const { getAllData } = require('../controller/getAllData');
 // Ejemplo: const authRouter = require('./auth.js');
 
 const dog = require('./dogs');
-const temperament = require('./temperament');
 
 const router = Router();
 
@@ -14,6 +13,5 @@ const router = Router();
 //DEFINIMOS LAS RUTAS (para cada table).
 //Cada que algo llegue a la ruta raiz "/" le indicamos que puede ser manejado por esos routes.
 router.use('/', dog);
-router.use('/', temperament);
 
 module.exports = router;

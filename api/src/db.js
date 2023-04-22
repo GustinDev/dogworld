@@ -42,8 +42,10 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Dog } = sequelize.models;
 const { Temperament } = sequelize.models;
 
-// Aca vendrian las relaciones
+// Relaciones (M:M):
 
+//Cada Dog puede tener muchos Temperamentos, y cada Temperamento puede pertenecer a muchos Dog.
+//Creamos una tabla intermedia, DogTemperament. Aqui se guarda el ID de los dos objetos relacionados.
 Dog.belongsToMany(Temperament, { through: 'DogTemperament' });
 Temperament.belongsToMany(Dog, { through: 'DogTemperament' });
 

@@ -21,6 +21,7 @@ const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 
 //force: false (to conserve POST method).
+//force: true (restart DB).
 
 // Syncing all the models at once.
 conn.sync({ force: false }).then(() => {

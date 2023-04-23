@@ -13,17 +13,22 @@ import {
   //DELETE_DOG,
 } from '../action-types/action-types';
 
-//Redux: Son objetos que contienen información (1. payload) y le dicen que operación ejecutar (2. type) sobre el Store. Si queremos actualizar, borrar, filtrar o añadir datos.
+//Actions: Son objetos que contienen data (payload) y dicen que operación ejecutar (type) sobre el Store. Si queremos actualizar, borrar, filtrar o añadir datos.
 
 //Tiene 2 datos, debemos hacer el dispatch:
 
-//type: Descripciones - nombres, de lo queremos hacer. Son "Ordenes - Pedidos" que son tomadas por el reducer para ser ejecutadas.
-//payload: Data que pasaremos al Store para actualizar el estado (tambien pueden ser name o continents para filtrar).
+//type: Son "Ordenes - Pedidos" de lo queremos hacer, son tomadas por el reducer para ser ejecutadas.
+//payload: Data que pasaremos al Store para actualizar el estado. Data del Backend (info JSON recibida del backend) y Data del Frontend (que pasan por param llamando las funciones) como (name, id) e intrucciones ("A-Z", "created").
+
+//RECIBIR DATA:
+//BACKEND: Por URL recibimos data JSON.
+//FRONTEND: Allá llaman a las funciones de actions, les pasan por parámetro las cosas. Ejemplo: filterByName("A-Z")
 
 //ACTIONS: AQUI SE JUNTA EL FRONT CON EL BACK.
 
-// DOGS
-//Tomamos la data de todos los dogs de GET_ALL.
+//* DOGS DATA
+
+//Tomamos la data de todos los dogs de /dogs y la despachamos.
 export function getAllDogs() {
   return async function (dispatch) {
     var json = await axios.get('/dogs');
@@ -34,7 +39,7 @@ export function getAllDogs() {
   };
 }
 
-//Recibimos el ID, lo sumamos a la URL, adquirimos la data de GET ID y la despachamos.
+//Recibimos el ID (front), lo sumamos a la URL, adquirimos la data de /Id (back) y la despachamos.
 
 export function getDog(id) {
   return async function (dispatch) {
@@ -50,7 +55,7 @@ export function getDog(id) {
   };
 }
 
-//Recibimos el name, lo sumamos a la URL, adquirimos la data de GET?NAME y la despachamos.
+//Recibimos el name (front). Lo sumamos a la URL, adquirimos la data de /dog?name= (back) y la despachamos.
 
 export function getDogName(name) {
   return async function (dispatch) {
@@ -66,7 +71,7 @@ export function getDogName(name) {
   };
 }
 
-//Recibimos la data por body, se la pasamos a /POST junto con la data.
+//Recibimos la data por body (front), se la pasamos a /dogs - POST (back) junto con la data.
 
 export function postDog(data) {
   return async function () {
@@ -75,15 +80,15 @@ export function postDog(data) {
   };
 }
 
-//Damos la "orden" filtrar los dogs por altura, pasamos ---.
-export function filterByHeight(payload) {
+export function clearDetail() {
   return {
-    type: 'FILTER_BY_HEIGHT',
-    payload,
+    type: CLEAR_DETAIL,
   };
 }
 
-//Damos la "orden" filtrar los dogs por nombre, pasamos A-Z para que sean filtrados alfabeticamente.
+//* FILTER DOGS
+
+//Damos la "orden" filtrar los dogs por nombre. Recibimos "A-Z" (front) y lo enviamos para que sean filtrados alfabeticamente.
 
 export function filterByName(payload) {
   return {
@@ -92,7 +97,7 @@ export function filterByName(payload) {
   };
 }
 
-//Damos la "orden" filtrar los dogs por nombre, pasamos "min_weight" en el payload si queremos de menor a mayor.
+//Damos la "orden" filtrar los dogs por nombre. Recibimos "min_weight" (del front), lo envíamos en payload si queremos filtrar de menor a mayor.
 
 export function filterByWeight(payload) {
   return {
@@ -101,7 +106,7 @@ export function filterByWeight(payload) {
   };
 }
 
-//Damos la "orden" filtrar los dogs, traemos los que son creado por el user, pasamos "created" para ver los que son de la DB o "all" para ver todos.
+//Damos la "orden" filtrar los dogs creados en DB by User. Recibimos "created" (front) para ver los que son de la DB o "all" para ver todos, lo pasamos en payload.
 
 export function filterCreatedDog(payload) {
   return {
@@ -110,9 +115,10 @@ export function filterCreatedDog(payload) {
   };
 }
 
-//TEMPERAMENTS
+//*TEMPERAMENTS
 
-//Tomamos la data de todos los temp de GET_ALL TEMP.
+//Tomamos la data de todos los temperaments de /temperaments y la despachamos.
+
 export function getTemperaments() {
   return async function (dispatch) {
     var json = await axios.get('/temperaments');
@@ -123,7 +129,7 @@ export function getTemperaments() {
   };
 }
 
-//Damos la "orden" filtrar los dogs por Temperament, pasamos el Temperament por el que queremos filtrar, o "All" si queremos todos.
+//Damos la "orden" filtrar los dogs por Temperament. Recibimos el Temperament por el que queremos filtrar (por front), o "All" si queremos todos. Lo pasamos por payload.
 
 export function FilterByTemperament(payload) {
   return {
@@ -132,13 +138,15 @@ export function FilterByTemperament(payload) {
   };
 }
 
-//STANDARD
+//*CREAR
 
 //Damos la "orden" quitar los detalles.
 
-export function clearDetail() {
+//Damos la "orden" filtrar los dogs por altura, pasamos ---.
+export function filterByHeight(payload) {
   return {
-    type: CLEAR_DETAIL,
+    type: 'FILTER_BY_HEIGHT',
+    payload,
   };
 }
 

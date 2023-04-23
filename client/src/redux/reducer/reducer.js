@@ -11,34 +11,38 @@ import {
   FILTER_CREATED_DOG,
   CLEAR_DETAIL,
   POST_DOG,
+  //CREAR
+  //FILTER_BY_HEIGHT,
   //DELETE_DOG
 } from '../action-types/action-types';
 
 //Estados iniciales:
 
 const initialState = {
-  dogs: [],
-  temperaments: [],
-  allDogs: [],
-  dogDetail: [],
+  dogs: [], //estado para data filtrada
+  temperaments: [], //estado para temperaments
+  allDogs: [], //estado para la data completa
+  dogDetail: [], //estado  para los detalles
 };
 
-//Aqui se define el estado inicial y se actualiza el estado global. Se esperan dos parámetros:
+//Definimos los estados iniciales globales para actualizarlos (con la data de los actions).
 
-//State: Que información tiene y lo que vamos a actualizar.
-//Action: Contiene un type (que nos dice que vamos a ejecutar) y un payload con la información para actualizar el estado.
+//Los reducer esperan dos parámetros:
+//State:Estado a modificar(contenedor de data).
+//Action:
+//1.Type (nombre de lo que vamos a ejecutar).
+//2.Payload (data para actualizar el estado). Si es de back, es data JSON. Y si es de front, palabras-instrucciones. Ejemplo: filterByName("A-Z"). Aqui podemos definir que palabra y luego la llamamos en los Componentes.
 
-//Los reducer basados en el action (type y paylaod), ejectan codigo que actualiza el estado global y se lo envia al store (como un nuevo objeto).
-
-//El payload tambien puede contener un name o continents para filtrar.
+//Los reducer ejectan codigo que actualiza el estado global (con el type y payload de los actions) y se lo envia al store (dónde guardan los estados globales).
 
 const reducer = (state = initialState, action) => {
-  //Actulizamos los estados llamando a los actions:
+  //Actulizamos la data de los estados llamando a los actions:
   switch (action.type) {
-    //GET DATA
+    //*GET GENERAL DATA
+
     case GET_ALL_DOGS:
       return {
-        //Guarda los estados dogs y allDogs toda la info de /dogs.
+        //Guarda en los estados dogs y allDogs toda la info de /dogs.
         ...state,
         dogs: action.payload,
         allDogs: action.payload,
@@ -57,19 +61,25 @@ const reducer = (state = initialState, action) => {
       };
     case CLEAR_DETAIL: {
       return {
-        //Borra el estado de dogDetail, lo deja en su estado inicia.
+        //Borra-reinicia el estado de dogDetail.
         ...state,
         dogDetail: {},
       };
     }
     case GET_ALL_TEMPERAMENTS:
       return {
-        //Guarda el estado temperaments toda la info de /temperaments
+        //Guarda en el estado temperaments toda la info de /temperaments
         ...state,
         temperaments: action.payload,
       };
 
-    //FILTROS
+    case POST_DOG:
+      //Devuelve los estados.
+      return {
+        ...state,
+      };
+
+    //*FILTROS
 
     case FILTER_BY_NAME:
       //En filterDogs se guarda el resultado del filtrado.
@@ -152,12 +162,6 @@ const reducer = (state = initialState, action) => {
         dogs: filterWeight,
       };
 
-    //STANDARD
-    case POST_DOG:
-      //Devuelve los estados (no hace nada)
-      return {
-        ...state,
-      };
     default:
       return { ...state };
   }

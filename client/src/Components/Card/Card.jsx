@@ -2,7 +2,6 @@ import React from 'react';
 //import style from './Card.module.css';
 import { Link } from 'react-router-dom';
 
-//Carmbiar Data.
 export default function Card({
   image,
   name,
@@ -14,12 +13,7 @@ export default function Card({
   return (
     <div>
       <div>
-        <img
-          src={image}
-          alt={`imagen de: ${name}`}
-          height='250px'
-          width='200px'
-        />
+        <img src={image} alt={`${name}`} height='250px' width='350px' />
       </div>
 
       <div>
@@ -29,7 +23,8 @@ export default function Card({
           </Link>
           <h2>{temperament}</h2>
           <h2>
-            MIN. WEIGHT: {weight_minimun} Kg / MAX. WEIGHT {weight_maximun} Kg
+            Minimun Weight: {weight_minimun} KG - Maximun Weight{' '}
+            {weight_maximun} KG.
           </h2>
         </div>
       </div>

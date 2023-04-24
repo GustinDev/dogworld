@@ -64,31 +64,42 @@ export default function Home() {
 
   //*HANDLERS - FILTERS
 
-  function handlerFilterTemperament(e) {
-    e.preventDefault();
-    dispatch(FilterByTemperament(e.target.value));
-    setCurrentPage(1);
-  }
-
   //Muestra que orden le estamos dando.
   // eslint-disable-next-line
   const [orden, setOrden] = useState('');
 
+  //General:
+  //e.preventDefault() -> Sirve para que no se pueda elergir la opción default (y se envie, hasta elegit opción).
+  //setCurrentPage(1); -> Por cada filtro, nos seteamos en la página 1.
+  //action(option.target.value) -> Envia el valor de la opción elegida (EJ: "all") al reducer.
+
+  //1.Despacha la action filterByName y le pasa al reducer una de las opciones: "A-Z" o Z-A
+
   function handlerFilterName(e) {
     dispatch(filterByName(e.target.value));
     setCurrentPage(1);
-    setOrden(`Ordenado ${e.target.value}`);
+    setOrden(`Order: ${e.target.value}`);
   }
 
-  function handlerFilterWeight(e) {
-    dispatch(filterByWeight(e.target.value));
+  //2.Despacha la action filterByName y le pasa al reducer una de las opciones: "max_weight" o "min_weight".
+
+  function handlerFilterWeight(option) {
+    dispatch(filterByWeight(option.target.value));
     setCurrentPage(1);
-    setOrden(`Ordenado ${e.target.value}`);
+    setOrden(`Order: ${option.target.value}`);
   }
 
-  //Despacha la action filterCreatedDog y le pasa una de las opciones: "all", "created" o "api".
-  function handlerFilterCreated(e) {
-    dispatch(filterCreatedDog(e.target.value));
+  //3.Despacha la action FilterByTemperament y le pasa al reducer los Temperaments disponibles.
+
+  function handlerFilterTemperament(option) {
+    option.preventDefault();
+    dispatch(FilterByTemperament(option.target.value));
+    setCurrentPage(1);
+  }
+
+  //4. Despacha la action filterCreatedDog y le pasa una de las opciones: "all", "created" o "api".
+  function handlerFilterCreated(option) {
+    dispatch(filterCreatedDog(option.target.value));
     setCurrentPage(1);
   }
 
@@ -134,12 +145,12 @@ export default function Home() {
               </select>
 
               <select onChange={(e) => handlerFilterWeight(e)}>
-                <option defaultValue>Order by wieght</option>
+                <option defaultValue>Order by weight</option>
                 <option key={1} value='max_weight'>
-                  Max
+                  Max - Min
                 </option>
                 <option key={2} value='min_weight'>
-                  Min
+                  Min - Max
                 </option>
               </select>
 
@@ -156,7 +167,7 @@ export default function Home() {
               </select>
 
               <select onChange={(e) => handlerFilterCreated(e)}>
-                <option defaultValue>Order by created</option>
+                <option defaultValue>Order by Creation</option>
                 <option key={1} value='all'>
                   All
                 </option>
@@ -164,13 +175,15 @@ export default function Home() {
                   Created
                 </option>
                 <option key={3} value='api'>
-                  Api
+                  API
                 </option>
               </select>
             </div>
           </div>
         </div>
       </header>
+
+      {/* BODY */}
 
       <div>
         {Object.keys(allDogs).length ? (
@@ -185,8 +198,8 @@ export default function Home() {
                       image={el.image}
                       name={el.name}
                       temperament={el.temperament}
-                      weight_min={el.weight_min}
-                      weight_max={el.weight_max}
+                      weight_minimun={el.weight_minimun}
+                      weight_maximun={el.weight_maximun}
                     />
                   }
                 </div>

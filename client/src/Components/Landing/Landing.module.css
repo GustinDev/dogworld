@@ -1,16 +1,18 @@
 /* COLORS */
 /*
  YELLOW: #F6B831
- YELLOW BACK: #f8c14b
+ YELLOW BACK:  #f1c05
 BLUE: #3598DC
 BLUE - SHADOW: #1875b3
+BLUE - WAVES #6bbcf3
 PINK: #ED668E
 WHITE: #FFFFFF 
 */
 
 .container {
   display: flex;
-  background-color: #f8c14b;
+  background-color: #f1c055;
+
   justify-content: space-evenly;
   justify-items: end;
   width: 100vw;
@@ -30,7 +32,7 @@ WHITE: #FFFFFF
 }
 
 .title {
-  font-size: 100px;
+  font-size: 120px;
   font-family: 'Lilita One', cursive;
   margin: 0px;
   text-shadow: 5px 1px 2px #1875b3;
@@ -38,10 +40,10 @@ WHITE: #FFFFFF
 }
 
 .text p {
-  color: #0d82d1;
-  font-size: 20px;
+  color: #3598dc;
+  font-size: 25px;
   font-family: 'Lilita One', cursive;
-  margin-top: -5px;
+  margin-top: 2px;
   text-shadow: 1px 1px 1px #0d629b;
   letter-spacing: 0.5px;
 }
@@ -62,7 +64,6 @@ BUTTON */
 
 .buttonOne {
   font-family: 'Lilita One', cursive;
-
   margin-top: -550;
   display: inline-block;
   outline: 0;
@@ -79,9 +80,25 @@ BUTTON */
   transition-duration: 0.15s;
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 3px 3px 3px #0d629b;
 }
 
 .buttonOne:hover {
   color: whitesmoke;
   background-color: #ed668e;
+  box-shadow: 3px 3px 3px #bb4266;
+}
+
+/* SHAPE */
+
+.waves {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 250px;
+  width: 3000px;
+  overflow: hidden;
+  line-height: 0;
+  margin-bottom: -30px;
+  opacity: 1;
 }

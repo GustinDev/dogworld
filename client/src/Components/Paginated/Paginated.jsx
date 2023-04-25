@@ -22,7 +22,7 @@ export default function Paginate({ numberOfDogsPerPage, dogs, paginado }) {
           return (
             <li className={style.list} key={number}>
               {/* El paginado(n) convierte al numero a clickear al numero de página actual. */}
-              {/* Y actualiza la página, con el setCurrentPage(pageNumber); */}
+              {/* Y actualiza la página, con el setCurrentPage(pageNumber) */}
               <button onClick={() => paginado(number)}>{number}</button>
             </li>
           );

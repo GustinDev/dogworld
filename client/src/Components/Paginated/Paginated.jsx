@@ -15,19 +15,21 @@ export default function Paginate({ numberOfDogsPerPage, dogs, paginado }) {
   }
 
   return (
-    <nav className={style.back}>
-      <ul className={style.ul}>
-        {/* Esperamos los numeros de página, y mapeamos cada numero en un li. */}
-        {pageNumbers?.map((number) => {
-          return (
-            <li className={style.list} key={number}>
-              {/* El paginado(n) convierte al numero a clickear al numero de página actual. */}
-              {/* Y actualiza la página, con el setCurrentPage(pageNumber) */}
-              <button onClick={() => paginado(number)}>{number}</button>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+    <div className={style.paginate_container}>
+      {/* Esperamos los numeros de página, y mapeamos cada numero en un li. */}
+      {/* El paginado(n) convierte al numero a clickear al numero de página actual. */}
+      {/* Y actualiza la página, con el setCurrentPage(pageNumber) */}
+      {pageNumbers?.map((number) => {
+        return (
+          <button
+            key={number}
+            className={style.paginate_item}
+            onClick={() => paginado(number)}
+          >
+            {number}
+          </button>
+        );
+      })}
+    </div>
   );
 }

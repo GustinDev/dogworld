@@ -130,59 +130,57 @@ export default function Home() {
       {/* NAV */}
 
       <header>
-        <div className={style.arreglar}>
-          {/* LINK LANDING */}
-
-          <Link to='/'>
-            <button className={style.logo}>DogWorld</button>
-          </Link>
-        </div>
-        <div className={style.headerContainerLeft}>
-          <div className={style.arreglo}>
-            {/* LINK RESTART */}
-            <button
-              className={style.btn}
-              onClick={(e) => {
-                handleClick(e);
-              }}
-            >
-              {' '}
-              Start Again
-            </button>
-
-            {/* LINK CREATE DOG */}
-
-            <Link to='/create'>
-              <button className={style.btn}>Create a New Dog</button>
+        <div className={style.Navbar}>
+          <div className='left_nav'>
+            {/* LINK LANDING */}
+            <Link className={style.titleContainer} to='/home'>
+              <h1
+                onClick={(e) => {
+                  handleClick(e);
+                }}
+                className={style.title}
+              >
+                DogWorld
+              </h1>
             </Link>
           </div>
-          {/* SEARCHBAR */}
-          {/* Le pasamos en que página estamos: "1" */}
 
-          <div className={style.headerLeft}>
+          <div className='center_nav'>
+            {/* SEARCHBAR */}
+            {/* Le pasamos en que página estamos: "1" */}
             <SearchBar paginado={paginado} />
-
             {/* FILTERS */}
             {/* Invocamos los handlers */}
             {/* Usamos select y option para mandar los parametros a los reducer */}
-            <div className={style.containerFilters}>
+
+            <div className={style.filters}>
+              {/* RESTART */}
+              <button
+                className={style.restart_button}
+                onClick={(e) => {
+                  handleClick(e);
+                }}
+              >
+                {/* {' '} */}
+                Start Again
+              </button>
               <select onChange={(e) => handlerFilterName(e)}>
-                <option defaultValue>Order by name</option>
+                <option defaultValue>Order by Name</option>
                 <option key={1} value='A-Z'>
-                  A-Z
+                  Alphabetically (A-Z)
                 </option>
                 <option key={2} value='Z-A'>
-                  Z-A
+                  Alphabetically (Z-A)
                 </option>
               </select>
 
               <select onChange={(e) => handlerFilterWeight(e)}>
-                <option defaultValue>Order by weight</option>
+                <option defaultValue>Order by Weight</option>
                 <option key={1} value='max_weight'>
-                  Max - Min
+                  Heavy - Light
                 </option>
                 <option key={2} value='min_weight'>
-                  Min - Max
+                  Light - Heavy
                 </option>
               </select>
 
@@ -199,17 +197,27 @@ export default function Home() {
               </select>
 
               <select onChange={(e) => handlerFilterCreated(e)}>
-                <option defaultValue>Order by Creation</option>
+                <option defaultValue>Order by Source</option>
                 <option key={1} value='all'>
-                  All
+                  All Sources
                 </option>
                 <option key={2} value='created'>
-                  Created
+                  Created by Users
                 </option>
                 <option key={3} value='api'>
-                  API
+                  Created by API
                 </option>
               </select>
+            </div>
+          </div>
+
+          <div className='right_nav'>
+            <div className={style.arreglo}>
+              {/* LINK CREATE DOG */}
+
+              <Link to='/create'>
+                <button className={style.buttonC}>Create a New Dog</button>
+              </Link>
             </div>
           </div>
         </div>

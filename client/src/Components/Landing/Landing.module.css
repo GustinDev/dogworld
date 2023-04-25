@@ -1,7 +1,7 @@
 /* COLORS */
 /*
  YELLOW: #F6B831
- YELLOW BACK:  #f1c05
+ YELLOW BACK:  #f3d26e
 BLUE: #3598DC
 BLUE - SHADOW: #1875b3
 BLUE - WAVES #6bbcf3
@@ -11,7 +11,7 @@ WHITE: #FFFFFF
 
 .container {
   display: flex;
-  background-color: #f1c055;
+  background-color: #f3d26e;
 
   justify-content: space-evenly;
   justify-items: end;

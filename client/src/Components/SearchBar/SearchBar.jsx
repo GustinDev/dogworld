@@ -39,10 +39,10 @@ export default function SearchBar({ paginado }) {
   };
 
   return (
-    <div className={style.searchbar_container}>
-      <form className={style.form}>
+    <div className={style.search_container}>
+      <form className={style.search_form}>
         <input
-          className={style.searchbar}
+          className={style.search_input}
           type='text'
           //Cada que cambia, se ejecuta handleInput(e)
           onChange={(e) => handleInput(e)}
@@ -50,12 +50,12 @@ export default function SearchBar({ paginado }) {
           placeholder='Search for any dog in the world...'
         />
         <button
-          className={style.searchbar_button}
+          className={style.search_button}
           //Cuando se hace submit, ejecuta handleSubmit(e)
           type='submit'
           onClick={(e) => handleSubmit(e)}
         >
-          Search Doggy
+          Go!
         </button>
       </form>
     </div>

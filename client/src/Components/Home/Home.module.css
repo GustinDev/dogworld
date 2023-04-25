@@ -153,3 +153,7 @@ header {
 }
 
 /* CARDS - BODY */
+
+.container_all_cards {
+  text-decoration: none;
+}

@@ -225,7 +225,7 @@ export default function Home() {
 
       {/* BODY - CARDS */}
       {/* DOCUMENTAR  */}
-      <div className=''>
+      <div className={style.container_all_cards}>
         {/* Si all dogs tiene keys (es para ver si ya cargó): */}
         {Object.keys(dogs).length ? (
           <div className={style.container_cards}>

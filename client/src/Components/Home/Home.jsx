@@ -28,26 +28,42 @@ export default function Home() {
   //useDispatch: Accedemos a los dipatch (estados despachados).
   const dispatch = useDispatch();
   //useSelector: Seleccionamos una parte del estado global - Store (dogs, alldogs, etc).
-  //Trae los dogs del estado global.
-  const allDogs = useSelector((state) => state.dogs);
+  //Trae los dogs del estado global (dogs trae los perros normales y filtrados (actual)).
+  const dogs = useSelector((state) => state.dogs);
   //Trae todos los temperaments del estado global.
   const allTemperaments = useSelector((state) => {
     return state.temperaments;
   });
 
   //*PAGINADO:
-  //Nos posicionamos en la primer página (por cada cambio).
+  //Creamos un estado que maneja la página actual.
   const [currentPage, setCurrentPage] = useState(1);
   //Ponemos el limite de dogs a 8 per page.
   // eslint-disable-next-line
-  const [dogsPerPage, setDogPerPage] = useState(8);
-  //Sacamos lo index (primer perro y ultimo perro por página).
-  const indexLastDog = currentPage * dogsPerPage;
-  const indexFirstDog = indexLastDog - dogsPerPage;
-  //Sacamos un array de los perros (de la página actual) de alldogs.
-  //EJ: Perros entre 8 - 16
-  const currentDogs = allDogs.slice(indexFirstDog, indexLastDog);
+  const [numberOfDogsPerPage, setNumberOfDogsPerPage] = useState(8);
+  //Sacamos lo index (primer perro y ultimo perro, según la página).
+  //Pagina 2 -> 2 * 8 -> indexLastDog = 16
+
+  //*¿Cómo obtenemos los dogs especificos de cada página?
+  //Sacamos los numeros de index del Primero y Ultimo dog de cada página.
+  const indexLastDog = currentPage * numberOfDogsPerPage;
+  //Pagina 2 -> 2 * 8. indexLastDog = 16.
+  const indexFirstDog = indexLastDog - numberOfDogsPerPage;
+  //Pagina 2 -> 16 - 18 indexFirstDog = 8.
+  //Luego hacemos un Slice, a allDogs con esos index (guardamos los objetos cortados).
+  //Slice: Corta y guarda en un array, los objetos de dogs cuyos index estén entre First y Last.
+  const currentDogsInPage = dogs.slice(indexFirstDog, indexLastDog);
+  //Sacamos un array de los perros (de la página actual), para mostrarlos.
+  //EJ: P2: [8...16]
+
+  //*¿Cómo vemos los dogs especificos de cada página?
+  //Paginado(n) y setCurrentPage(n) modifican a currentPage() y currentDogsInPage() - con useState.
+  //Se modifican al darle click al li de Paginated.
+  //Al final, currentDogsInPage() es el array mapeado en el body por Cards.
+
   //Creamos var paginado (y le damos el valor de la página actual).
+  //setCurrentPage(pageNumber) puede cambiar el numero de página que vemos
+  //y por lo tanto sus objetos.
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -92,6 +108,7 @@ export default function Home() {
   //3.Despacha la action FilterByTemperament y le pasa al reducer los Temperaments disponibles.
 
   function handlerFilterTemperament(option) {
+    // -> ¿Porqué no funcionan preventDefault()?
     option.preventDefault();
     dispatch(FilterByTemperament(option.target.value));
     setCurrentPage(1);
@@ -110,14 +127,19 @@ export default function Home() {
 
   return (
     <div className={style.background}>
+      {/* NAV */}
+
       <header>
         <div className={style.arreglar}>
+          {/* LINK LANDING */}
+
           <Link to='/'>
             <button className={style.logo}>DogWorld</button>
           </Link>
         </div>
         <div className={style.headerContainerLeft}>
           <div className={style.arreglo}>
+            {/* LINK RESTART */}
             <button
               className={style.btn}
               onClick={(e) => {
@@ -125,14 +147,24 @@ export default function Home() {
               }}
             >
               {' '}
-              Get Dogs
+              Start Again
             </button>
+
+            {/* LINK CREATE DOG */}
+
             <Link to='/create'>
-              <button className={style.btn}>Create Dog</button>
+              <button className={style.btn}>Create a New Dog</button>
             </Link>
           </div>
+          {/* SEARCHBAR */}
+          {/* Le pasamos en que página estamos: "1" */}
+
           <div className={style.headerLeft}>
             <SearchBar paginado={paginado} />
+
+            {/* FILTERS */}
+            {/* Invocamos los handlers */}
+            {/* Usamos select y option para mandar los parametros a los reducer */}
             <div className={style.containerFilters}>
               <select onChange={(e) => handlerFilterName(e)}>
                 <option defaultValue>Order by name</option>
@@ -183,23 +215,26 @@ export default function Home() {
         </div>
       </header>
 
-      {/* BODY */}
-
+      {/* BODY - CARDS */}
+      {/* DOCUMENTAR  */}
       <div>
-        {Object.keys(allDogs).length ? (
+        {/* Si all dogs tiene keys (es para ver si ya cargó): */}
+        {Object.keys(dogs).length ? (
           <div className={style.container_cards}>
-            {currentDogs?.map((el) => {
+            {/* Mapea los dogs por página, entre First y Last (8) */}
+            {currentDogsInPage?.map((dogPerPage) => {
               return (
-                <div className={style.main_container} key={el.id}>
+                <div className={style.main_container} key={dogPerPage.id}>
                   {
+                    // Llenamos la card, con la info de los dogs.
                     <Card
-                      key={el.id}
-                      id={el.id}
-                      image={el.image}
-                      name={el.name}
-                      temperament={el.temperament}
-                      weight_minimun={el.weight_minimun}
-                      weight_maximun={el.weight_maximun}
+                      key={dogPerPage.id}
+                      id={dogPerPage.id}
+                      image={dogPerPage.image}
+                      name={dogPerPage.name}
+                      temperament={dogPerPage.temperament}
+                      weight_minimun={dogPerPage.weight_minimun}
+                      weight_maximun={dogPerPage.weight_maximun}
                     />
                   }
                 </div>
@@ -207,18 +242,19 @@ export default function Home() {
             })}
           </div>
         ) : (
+          // Mientras no cargue, creamos un loading
           <div>
             <h1>LOADING...</h1>
           </div>
         )}
       </div>
       {/* A Paginate le pasamos: 
-      1. Limite de Perros P/Página. 2. Todos los perros de actions
-      alldogs( /dogs). 
-      3.Paginado (creo, pagina actual). */}
+      1. Limite de Perros P/Página.
+      2. dogs, estado que guarda los perros filtrado. 
+      3. Paginado (pagina actual). */}
       <Paginate
-        dogsPerPage={dogsPerPage}
-        allDogs={allDogs.length}
+        numberOfDogsPerPage={numberOfDogsPerPage}
+        dogs={dogs.length}
         paginado={paginado}
       />
     </div>

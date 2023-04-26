@@ -1,0 +1,56 @@
+/*
+ YELLOW: #F6B831
+ YELLOW BACK:  #f3d26e
+BLUE: #3598DC
+BLUE - SHADOW: #1875b3
+BLUE - WAVES #6bbcf3
+PINK: #ED668E
+WHITE: #FFFFFF 
+*/
+
+.single_card_container {
+  width: 360px;
+  height: 620px;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f3d26e;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.card_img {
+  position: relative;
+  top: 0;
+  padding-top: 0px;
+}
+
+.card_img {
+  padding-top: 0px;
+}
+
+.card_text {
+}
+
+.card_title {
+  text-decoration: none;
+  font-family: 'Lilita One', cursive;
+  color: aliceblue;
+  text-shadow: 2px 2px 2px #b68800;
+}
+
+.card_weight {
+}
+
+.card_list {
+  list-style-type: none;
+  padding: 0px;
+}
+
+.card_list_title {
+}
+
+.card_list li {
+}

@@ -1,6 +1,8 @@
+//Standard
 import React from 'react';
-//import style from './Card.module.css';
 import { Link } from 'react-router-dom';
+//CSS
+import style from '../Card/Card.module.css';
 
 export default function Card({
   image,
@@ -10,23 +12,27 @@ export default function Card({
   weight_maximun,
   id,
 }) {
+  let tempNoEspaces = temperament.replace(' ', '');
+  let tempSeparated = tempNoEspaces.split(',');
+
   return (
-    <div>
-      <div>
+    <div className={style.single_card_container}>
+      <div className={style.card_img}>
         <img src={image} alt={`${name}`} height='250px' width='350px' />
       </div>
-
-      <div>
-        <div>
-          <Link to={`/home/${id}`}>
-            <h3>{name}</h3>
-          </Link>
-          <h2>{temperament}</h2>
-          <h2>
-            Minimun Weight: {weight_minimun} KG - Maximun Weight{' '}
-            {weight_maximun} KG.
-          </h2>
-        </div>
+      <div className={style.card_text}>
+        <Link className={style.card_title} to={`/home/${id}`}>
+          <h1>{name}</h1>
+        </Link>
+        <h4 className={style}>
+          Weight: {weight_minimun} kg - {weight_maximun} kg.
+        </h4>
+        <ul className={style.card_list}>
+          <h4 className={style.card_list_title}>Temperaments:</h4>
+          {tempSeparated?.map((temp, index) => {
+            return <li key={index}>{temp}</li>;
+          })}
+        </ul>
       </div>
     </div>
   );

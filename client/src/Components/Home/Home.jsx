@@ -225,37 +225,36 @@ export default function Home() {
 
       {/* BODY - CARDS */}
       {/* DOCUMENTAR  */}
-      <div className={style.container_all_cards}>
-        {/* Si all dogs tiene keys (es para ver si ya cargó): */}
-        {Object.keys(dogs).length ? (
-          <div className={style.container_cards}>
-            {/* Mapea los dogs por página, entre First y Last (8) */}
-            {currentDogsInPage?.map((dogPerPage) => {
-              return (
-                <div className={style.main_container} key={dogPerPage.id}>
-                  {
-                    // Llenamos la card, con la info de los dogs.
-                    <Card
-                      key={dogPerPage.id}
-                      id={dogPerPage.id}
-                      image={dogPerPage.image}
-                      name={dogPerPage.name}
-                      temperament={dogPerPage.temperament}
-                      weight_minimun={dogPerPage.weight_minimun}
-                      weight_maximun={dogPerPage.weight_maximun}
-                    />
-                  }
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          // Mientras no cargue, creamos un loading
-          <div>
-            <h1>LOADING...</h1>
-          </div>
-        )}
-      </div>
+      {/* Si el estado dogs tiene keys (es para ver si ya cargó): */}
+      {Object.keys(dogs).length ? (
+        <div className={style.container_cards}>
+          {/* Mapea los dogs por página, entre First y Last (8) */}
+          {currentDogsInPage?.map((dogPerPage) => {
+            return (
+              <div className={style.card_container} key={dogPerPage.id}>
+                {
+                  // Llenamos la card, con la info de los dogs.
+                  <Card
+                    key={dogPerPage.id}
+                    id={dogPerPage.id}
+                    image={dogPerPage.image}
+                    name={dogPerPage.name}
+                    temperament={dogPerPage.temperament}
+                    weight_minimun={dogPerPage.weight_minimun}
+                    weight_maximun={dogPerPage.weight_maximun}
+                  />
+                }
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        // Mientras no cargue, creamos un loading
+        <div>
+          <h1>LOADING...</h1>
+        </div>
+      )}
+
       {/* A Paginate le pasamos: 
       1. Limite de Perros P/Página.
       2. dogs, estado que guarda los perros filtrado. 

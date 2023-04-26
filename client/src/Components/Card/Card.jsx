@@ -12,8 +12,11 @@ export default function Card({
   weight_maximun,
   id,
 }) {
-  let tempNoEspaces = temperament?.replace(' ', '');
-  let tempSeparated = tempNoEspaces?.split(',');
+  //Quitamos los espacios.
+  let tempSeparated = temperament?.split(',');
+  let tempFinal = tempSeparated.map((temp) => {
+    return temp.trim();
+  });
 
   return (
     <div className={style.single_card_container}>
@@ -30,8 +33,8 @@ export default function Card({
           </h3>
           <ul className={style.card_list}>
             <h4 className={style.card_list_title}>Temperaments:</h4>
-            {tempSeparated?.map((temp, index) => {
-              return <li key={index}>⭐{temp}</li>;
+            {tempFinal?.map((temp, index) => {
+              return <li key={index}>🌍{temp}</li>;
             })}
           </ul>
         </div>

@@ -1,18 +1,30 @@
 /*
- YELLOW: #F6B831
+ YELLOW: #FFC93C
  YELLOW BACK:  #f3d26e
 BLUE: #3598DC
 BLUE - SHADOW: #1875b3
 BLUE - WAVES #6bbcf3
 PINK: #ED668E
 WHITE: #FFFFFF 
+
+#0081C9
+#5BC0F8
+#86E5FF
+*/
+/* CREAM COLORS: 
+
+#C3F8FF
+#ABD9FF
+#FFF6BF
+#FFEBAD
+
 */
 
 .single_card_container {
   width: 350px;
-  height: 610px;
+  height: 660px;
   font-family: 'Roboto', sans-serif;
-  background-color: #f3d26e;
+  background-color: #abd9ff;
   margin: 20px;
   display: flex;
   flex-direction: column;
@@ -20,8 +32,14 @@ WHITE: #FFFFFF
   align-items: center;
   text-align: center;
   border-radius: 20px;
-  box-shadow: 5px 5px #6c3c06;
+  box-shadow: 5px 5px #1875b3;
   text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.single_card_container:hover {
+  transform: scale(1.05);
+  transform-origin: center;
 }
 
 .card_img img {
@@ -44,7 +62,9 @@ WHITE: #FFFFFF
   font-family: 'Lilita One', cursive;
   color: aliceblue;
   /* text-shadow: 2px 2px 3px #b68800; */
-  -webkit-text-stroke: 0.1px #c18d00;
+  /* -webkit-text-stroke: 0.1px #c18d00; */
+  /* text-shadow: 3px 3px 4px #3598dc; */
+  -webkit-text-stroke: 0.1px #1875b3;
   margin-top: 0px;
   letter-spacing: 0.5px;
 }
@@ -56,10 +76,10 @@ WHITE: #FFFFFF
   margin-bottom: 2px;
 }
 
-.card_title:hover {
+/* .card_title:hover {
   color: #ffe172;
   -webkit-text-stroke: 0.1px #684500;
-}
+} */
 
 .card_weight {
   text-decoration: none;
@@ -84,7 +104,7 @@ WHITE: #FFFFFF
 .card_list_title {
   font-family: 'Lilita One', cursive;
   color: aliceblue;
-  -webkit-text-stroke: 0.1px #c18d00;
+  -webkit-text-stroke: 0.1px #1875b3;
   text-decoration: none;
   font-size: 27px;
   margin-top: 0px;

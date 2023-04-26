@@ -222,6 +222,9 @@ export default function Home() {
           </div>
         </div>
       </header>
+      <div className={style.instructions}>
+        <h4>Tip: Click a card to see detailed information! </h4>
+      </div>
 
       {/* BODY - CARDS */}
       {/* DOCUMENTAR  */}

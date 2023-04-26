@@ -152,6 +152,20 @@ header {
   box-shadow: 3px 3px 3px #5a1c2f;
 }
 
+/* INSTRUCTIONS */
+
+.instructions {
+  background-color: #0d82d1;
+}
+
+.instructions h4 {
+  font-family: 'Roboto', sans-serif;
+  color: #fff;
+  margin: 0px;
+  padding: 10px;
+  text-shadow: 1px 1px 2px #064670;
+}
+
 /* CARDS - BODY */
 
 .container_all_cards {

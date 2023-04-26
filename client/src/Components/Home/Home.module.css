@@ -156,4 +156,14 @@ header {
 
 .container_all_cards {
   text-decoration: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.container_cards {
+  text-decoration: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
 }

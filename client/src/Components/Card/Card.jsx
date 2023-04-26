@@ -12,25 +12,25 @@ export default function Card({
   weight_maximun,
   id,
 }) {
-  let tempNoEspaces = temperament.replace(' ', '');
-  let tempSeparated = tempNoEspaces.split(',');
+  let tempNoEspaces = temperament?.replace(' ', '');
+  let tempSeparated = tempNoEspaces?.split(',');
 
   return (
     <div className={style.single_card_container}>
       <div className={style.card_img}>
-        <img src={image} alt={`${name}`} height='250px' width='350px' />
+        <img src={image} alt={`${name}`} height='260px' width='350px' />
       </div>
       <div className={style.card_text}>
         <Link className={style.card_title} to={`/home/${id}`}>
           <h1>{name}</h1>
         </Link>
-        <h4 className={style}>
+        <h3 className={style.card_weight}>
           Weight: {weight_minimun} kg - {weight_maximun} kg.
-        </h4>
+        </h3>
         <ul className={style.card_list}>
           <h4 className={style.card_list_title}>Temperaments:</h4>
           {tempSeparated?.map((temp, index) => {
-            return <li key={index}>{temp}</li>;
+            return <li key={index}>⭐{temp}</li>;
           })}
         </ul>
       </div>

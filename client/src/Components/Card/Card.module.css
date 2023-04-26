@@ -9,39 +9,66 @@ WHITE: #FFFFFF
 */
 
 .single_card_container {
-  width: 360px;
-  height: 620px;
+  width: 350px;
+  height: 610px;
   font-family: 'Roboto', sans-serif;
   background-color: #f3d26e;
-  margin: 10px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 5px 5px #534303;
+}
+
+.card_img img {
+  object-fit: cover;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+
+.card_text {
+  text-decoration: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
-}
-
-.card_img {
-  position: relative;
-  top: 0;
-  padding-top: 0px;
-}
-
-.card_img {
-  padding-top: 0px;
-}
-
-.card_text {
 }
 
 .card_title {
   text-decoration: none;
+  font-size: 20px;
   font-family: 'Lilita One', cursive;
   color: aliceblue;
-  text-shadow: 2px 2px 2px #b68800;
+  /* text-shadow: 2px 2px 3px #b68800; */
+  -webkit-text-stroke: 0.1px #c18d00;
+  margin-top: 0px;
+  letter-spacing: 0.5px;
+}
+
+.card_title h1 {
+  margin-top: 0px;
+  font: 45px;
+  margin-bottom: 2px;
+}
+
+.card_title:hover {
+  color: #ffe172;
+  -webkit-text-stroke: 0.1px #684500;
 }
 
 .card_weight {
+  margin: 0px;
+  font-size: 18px;
+  color: #241400;
+  font-weight: 600;
+  margin-bottom: -10px;
+}
+
+.card_weight h3 {
+  text-align: start;
 }
 
 .card_list {
@@ -50,7 +77,25 @@ WHITE: #FFFFFF
 }
 
 .card_list_title {
+  font-family: 'Lilita One', cursive;
+  color: aliceblue;
+  -webkit-text-stroke: 0.1px #c18d00;
+  text-decoration: none;
+  font-size: 27px;
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+
+.card_list {
+  width: 300px;
 }
 
 .card_list li {
+  text-decoration: none;
+  font-size: 18px;
+  color: #241400;
+  font-weight: 600;
+  text-align: start;
+
+  padding-left: 60px;
 }

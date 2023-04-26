@@ -20,7 +20,8 @@ WHITE: #FFFFFF
   align-items: center;
   text-align: center;
   border-radius: 20px;
-  box-shadow: 5px 5px #534303;
+  box-shadow: 5px 5px #6c3c06;
+  text-decoration: none;
 }
 
 .card_img img {
@@ -49,6 +50,7 @@ WHITE: #FFFFFF
 }
 
 .card_title h1 {
+  text-decoration: none;
   margin-top: 0px;
   font: 45px;
   margin-bottom: 2px;
@@ -60,6 +62,7 @@ WHITE: #FFFFFF
 }
 
 .card_weight {
+  text-decoration: none;
   margin: 0px;
   font-size: 18px;
   color: #241400;
@@ -69,9 +72,11 @@ WHITE: #FFFFFF
 
 .card_weight h3 {
   text-align: start;
+  text-decoration: none;
 }
 
 .card_list {
+  text-decoration: none;
   list-style-type: none;
   padding: 0px;
 }

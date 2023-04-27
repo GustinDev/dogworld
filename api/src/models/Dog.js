@@ -40,7 +40,7 @@ module.exports = (sequelize) => {
       lifespan: {
         type: DataTypes.INTEGER,
       },
-
+      //Ponemos una imagen default, si no hay foto.
       image: {
         type: DataTypes.STRING,
         defaultValue:

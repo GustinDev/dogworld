@@ -70,7 +70,8 @@ export default function Home() {
 
   //* USEEFFECT
 
-  //Pide que se realicen dos acciones especificas cada que se cargue la pargina (porque toman tiempo, debido a que traen data, es para hacerlo asincrono).
+  //Pide que se realicen dos acciones especificas cada que se cargue la pargina -o se cambie el estado- .
+  //Ejecuta la funciones de traer data de actions.
 
   useEffect(() => {
     dispatch(getAllDogs());
@@ -254,7 +255,7 @@ export default function Home() {
       ) : (
         // Mientras no cargue, creamos un loading
         <div>
-          <h1>LOADING...</h1>
+          <h1>LOADING</h1>
         </div>
       )}
 

@@ -12,9 +12,9 @@ export default function Card({
   weight_maximun,
   id,
 }) {
-  //Quitamos los espacios.
+  //Quitamos los espacios, "," y convertimos a los temperamentos en array.
   let tempSeparated = temperament?.split(',');
-  let tempFinal = tempSeparated.map((temp) => {
+  let tempFinal = tempSeparated?.map((temp) => {
     return temp.trim();
   });
 

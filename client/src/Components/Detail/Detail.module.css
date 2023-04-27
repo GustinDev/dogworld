@@ -1,0 +1,118 @@
+.detail_container {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.detail_card {
+  background-color: #abd9ff;
+  display: flex;
+  border-radius: 25px;
+  box-shadow: 5px 5px #1875b3;
+}
+
+.detail_card img {
+  width: 850px;
+  height: 650px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+
+.detail_text_container {
+  text-decoration: none;
+}
+
+.detail_text {
+  text-decoration: none;
+  padding: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-family: 'Roboto', sans-serif;
+  color: #033b5c;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: start;
+}
+
+.detail_text_specs {
+  width: 350px;
+  text-align: start;
+  padding-bottom: 10px;
+}
+
+.detail_text_specs h2 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 0px;
+  font-size: 25px;
+}
+
+.detail_text h1 {
+  text-decoration: none;
+  text-decoration: none;
+  font-size: 40px;
+  font-family: 'Lilita One', cursive;
+  color: aliceblue;
+  -webkit-text-stroke: 0.1px #1875b3;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  letter-spacing: 0.5px;
+}
+
+.detail_temp {
+  text-decoration: none;
+}
+
+.detail_temp h2 {
+  text-decoration: none;
+  font-family: 'Lilita One', cursive;
+  color: aliceblue;
+  -webkit-text-stroke: 0.1px #1875b3;
+  text-decoration: none;
+  font-size: 40px;
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+
+.detail_temp li {
+  list-style-type: none;
+  font-size: 20px;
+}
+
+.detail_button {
+  text-decoration: none;
+  font-size: 20px;
+  width: 125px;
+  height: 45px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  margin-right: 5px;
+  font-weight: 500;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  outline: 0;
+  cursor: pointer;
+  border: 0px solid #000;
+  border-radius: 10px;
+  color: #fff;
+  background: #0d82d1;
+  text-align: center;
+  transition-duration: 0.15s;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 2px 2px 2px #0d629b;
+  position: relative;
+  bottom: 0;
+}
+
+.detail_button:hover {
+  color: whitesmoke;
+  background-color: #ed668e;
+  box-shadow: 3px 3px 3px #bb4266;
+}

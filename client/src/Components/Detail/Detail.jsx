@@ -48,7 +48,7 @@ export default function Detail(props) {
               {dogDetail[0].weight_maximun} kg.
             </h2>
             <div>
-              <h2>Temperaments: </h2>
+              <h2>Temperaments:</h2>
               <h2>{dogDetail[0].temperament}</h2>
             </div>
           </div>

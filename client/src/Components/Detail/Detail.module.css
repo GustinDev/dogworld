@@ -10,9 +10,11 @@
   display: flex;
   border-radius: 25px;
   box-shadow: 5px 5px #1875b3;
+  text-decoration: none;
 }
 
 .detail_card img {
+  text-decoration: none;
   width: 850px;
   height: 650px;
   border-top-left-radius: 25px;

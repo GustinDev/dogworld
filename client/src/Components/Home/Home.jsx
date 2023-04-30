@@ -216,7 +216,7 @@ export default function Home() {
             <div className={style.arreglo}>
               {/* LINK CREATE DOG */}
 
-              <Link to='/create'>
+              <Link to='/form'>
                 <button className={style.buttonC}>Create a New Dog</button>
               </Link>
             </div>

@@ -14,7 +14,7 @@ const validationData = (input) => {
   //Guardamos los errores.
   let errorsContainer = {};
 
-  //Errors
+  //Errors - Prompt
   if (!input.name) {
     errorsContainer.name = 'There must be a name.';
   }
@@ -25,11 +25,12 @@ const validationData = (input) => {
   if (!input.height_minimun || input.weight_minimun <= 0) {
     errorsContainer.height_minimun = 'The min height must be bigger.';
   }
+
   if (!input.height_maximun || input.height_maximun <= 0) {
     errorsContainer.height_maximun = 'The max height must be bigger.';
   }
 
-  //CASOS ESPECIALES, HACER:
+  //CASOS ESPECIALES, HACER (MENOR NO PUEDE SER MAYOR):
 
   // if (parseInt(input.height_minimun) >= parseInt(input.height_maximun)) {
   //   errorsContainer.bigger =

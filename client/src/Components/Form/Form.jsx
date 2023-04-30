@@ -8,6 +8,8 @@ import { postDog, getTemperaments } from '../../redux/actions/actions';
 import style from './Form.module.css';
 
 //Validamos la data ingresada, agregamos error en caso de error.
+//TODO DOCUMENTAR TODO ESTO Y CONFIRMAR SI FUNCIONAN (AGREGAR CASOS ESPECIALES).
+
 const validationData = (input) => {
   //Guardamos los errores.
   let errorsContainer = {};

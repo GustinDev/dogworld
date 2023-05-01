@@ -31,11 +31,14 @@ export default function Card({
           <h3 className={style.card_weight}>
             Weight: {weight_minimun} kg - {weight_maximun} kg.
           </h3>
+
+          <h4 className={style.card_list_title}>Temperaments:</h4>
           <ul className={style.card_list}>
-            <h4 className={style.card_list_title}>Temperaments:</h4>
-            {tempFinal?.map((temp, index) => {
-              return <li key={index}>🌍{temp}</li>;
-            })}
+            <li>
+              {tempFinal?.map((temp, index) => {
+                return <li key={index}>🌍{temp}</li>;
+              })}
+            </li>
           </ul>
         </div>
       </Link>

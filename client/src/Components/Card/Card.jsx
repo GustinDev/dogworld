@@ -22,15 +22,15 @@ export default function Card({
     <div className={style.single_card_container}>
       <Link to={`/home/${id}`} style={{ textDecoration: 'none' }}>
         <div className={style.card_img}>
-          <img src={image} alt={`${name}`} height='260px' width='350px' />
+          <img src={image} alt={`${name}`} height='260px' width='375px' />
         </div>
+        <h3 className={style.card_weight}>
+          Weight: {weight_minimun} kg - {weight_maximun} kg.
+        </h3>
         <div className={style.card_text}>
           <div className={style.card_title}>
             <h1>{name}</h1>
           </div>
-          <h3 className={style.card_weight}>
-            Weight: {weight_minimun} kg - {weight_maximun} kg.
-          </h3>
 
           <h4 className={style.card_list_title}>Temperaments:</h4>
           <ul className={style.card_list}>

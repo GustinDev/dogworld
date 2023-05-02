@@ -21,8 +21,8 @@ WHITE: #FFFFFF
 */
 
 .single_card_container {
-  width: 350px;
-  height: 600px;
+  width: 375px;
+  height: 585px;
   font-family: 'Roboto', sans-serif;
   background-color: #abd9ff;
   margin: 20px;
@@ -48,6 +48,28 @@ WHITE: #FFFFFF
   border-top-left-radius: 20px;
 }
 
+.card_weight {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  position: relative;
+  top: -29.5px;
+  text-decoration: none;
+  margin: 0px;
+  padding: 2px;
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: 600;
+  background-color: #033b5c;
+  width: 200px;
+}
+
+.card_weight h3 {
+  text-align: start;
+  text-decoration: none;
+}
+
+/* TEXT */
+
 .card_text {
   text-decoration: none;
   display: flex;
@@ -59,26 +81,24 @@ WHITE: #FFFFFF
 .card_title {
   display: flex;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 20px;
   font-family: 'Lilita One', cursive;
   color: aliceblue;
   /* text-shadow: 2px 2px 3px #b68800; */
   /* -webkit-text-stroke: 0.1px #c18d00; */
   /* text-shadow: 3px 3px 4px #3598dc; */
   -webkit-text-stroke: 0.1px #1875b3;
-  margin-top: 0px;
+  margin: 0px;
   letter-spacing: 0.5px;
-  height: 95px;
+  height: 90px;
   align-items: center;
   justify-content: center;
+  margin-top: -25px;
 }
 
 .card_title h1 {
   text-decoration: none;
-  margin-top: 0px;
-  font: 45px;
-  margin-bottom: 2px;
-
+  margin: 0px;
   text-align: center;
 }
 
@@ -86,20 +106,6 @@ WHITE: #FFFFFF
   color: #ffe172;
   -webkit-text-stroke: 0.1px #684500;
 } */
-
-.card_weight {
-  text-decoration: none;
-  margin: 0px;
-  font-size: 18px;
-  color: #033b5c;
-  font-weight: 600;
-  margin-bottom: -10px;
-}
-
-.card_weight h3 {
-  text-align: start;
-  text-decoration: none;
-}
 
 /* TEMPERAMENS */
 
@@ -112,7 +118,6 @@ ul {
 .card_list {
   text-decoration: none;
   list-style-type: none;
-  padding: 0px;
 }
 
 .card_list_title {
@@ -120,14 +125,15 @@ ul {
   color: aliceblue;
   -webkit-text-stroke: 0.1px #1875b3;
   text-decoration: none;
-  font-size: 27px;
-  margin-top: 20px;
-  margin-bottom: 10px;
+  font-size: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .card_list {
   width: 320px;
-  height: 120px;
+  height: 150px;
+  padding-left: 15px;
 }
 
 .card_list li {
@@ -136,4 +142,5 @@ ul {
   color: #033b5c;
   font-weight: 600;
   text-align: start;
+  width: 155px;
 }

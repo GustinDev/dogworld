@@ -8,7 +8,6 @@ import { postDog, getTemperaments } from '../../redux/actions/actions';
 import style from './Form.module.css';
 
 //Validamos la data ingresada, agregamos error en caso de error.
-//TODO DOCUMENTAR TODO ESTO Y CONFIRMAR SI FUNCIONAN (AGREGAR CASOS ESPECIALES).
 
 const validationData = (input) => {
   //Guardamos los errores.
@@ -195,11 +194,6 @@ export default function Form() {
     history.push('/home');
   };
 
-  //Para saber si errors está vacio.
-  function isEmpty(obj) {
-    return Object.keys(obj).length === 0;
-  }
-
   return (
     <div className={style.background}>
       {/* TITLE */}
@@ -359,6 +353,9 @@ export default function Form() {
         {/* Si, el objeto errors (del useState) guarda un error con el nombre puesto en validation, se muestra el <p> con el mensaje (que contiene el objeto - error)*/}
         <div className={style.errorStyle}>
           {/* Hacemos un condicional terciario, si hay errores en el estado errors, se muestra un div con los errors. Si no, nada. */}
+
+          {/* Instrucciones: Que funcione mediante un boton check. Y si si, deje publicar el perro, si no, que muestre los errors. */}
+
           {Object.keys(errors).lenght !== 0 ? (
             <div>
               <h2>There are some errors:</h2>

@@ -30,68 +30,68 @@ const validationData = (input) => {
 
   //Height - Weight < 0
 
-  if (!input.height_minimun || input.weight_minimun <= 0) {
-    errorsContainer.height_minimun =
-      'The minimun height must be greater than 0.';
+  if (!input.minimun_height || input.minimun_weight <= 0) {
+    errorsContainer.minimun_height0 =
+      'The minimun height must be a number greater than 0.';
   }
 
-  if (!input.height_maximun || input.height_maximun <= 0) {
-    errorsContainer.height_maximun =
-      'The maximun height must be greater than 0.';
+  if (!input.maximun_height || input.maximun_height <= 0) {
+    errorsContainer.maximun_height0 =
+      'The maximun height must be a number greater than 0.';
   }
 
-  if (!input.weight_minimun || input.weight_minimun <= 0) {
-    errorsContainer.weight_minimun =
-      'The minimun weight must be greater than 0.';
+  if (!input.minimun_weight || input.minimun_weight <= 0) {
+    errorsContainer.minimun_weight0 =
+      'The minimun weight must be a number greater than 0.';
   }
 
-  if (!input.weight_maximun || input.weight_maximun <= 0) {
-    errorsContainer.weight_maximun =
-      'The maximun weight must be greater than 0.';
+  if (!input.maximun_weight || input.maximun_weight <= 0) {
+    errorsContainer.maximun_weight0 =
+      'The maximun weight must be a number greater than 0.';
   }
 
   //MENOR NO PUEDE SER MAYOR:
 
-  if (parseInt(input.height_minimun) > parseInt(input.height_maximun)) {
+  if (parseInt(input.minimun_height) > parseInt(input.maximun_height)) {
     errorsContainer.biggerh =
       "Minimun height shouldn't be greater than maximun height.";
   }
 
-  if (parseInt(input.weight_minimun) > parseInt(input.weight_maximun)) {
+  if (parseInt(input.minimun_weight) > parseInt(input.maximun_weight)) {
     errorsContainer.biggerw =
       "Minimun weight shouldn't be greater than maximun weight.";
   }
 
   //Height - Weight - Only numbers.
 
-  if (input.height_minimun) {
+  if (input.minimun_height) {
     if (!/^[0-9]*$/) {
       errorsContainer.height = 'The height can only contain numbers.';
     }
   }
 
-  if (input.height_maximun) {
+  if (input.maximun_height) {
     if (!/^[0-9]*$/) {
       errorsContainer.height = 'The height can only contain numbers.';
     }
   }
 
-  if (input.weight_minimun) {
+  if (input.minimun_weight) {
     if (!/^[0-9]*$/) {
-      errorsContainer.weight_minimun = 'The weight can only contain numbers.';
+      errorsContainer.minimun_weight = 'The weight can only contain numbers.';
     }
   }
 
-  if (input.weight_maximun) {
+  if (input.maximun_weight) {
     if (!/^[0-9]*$/) {
-      errorsContainer.weight_maximun = 'The weight can only contain numbers.';
+      errorsContainer.maximun_weight = 'The weight can only contain numbers.';
     }
   }
 
   //Lifespan.
 
   if (!input.lifespan || input.lifespan <= 0) {
-    errorsContainer.lifespan = 'The lifespan must be greather than 0.';
+    errorsContainer.lifespan = 'The lifespan must be a number greater than 0.';
   }
 
   if (input.lifespan) {
@@ -107,6 +107,7 @@ const validationData = (input) => {
 export default function Form() {
   //useDispatch: Accedemos a los dipatch (estados despachados).
   const dispatch = useDispatch();
+  // eslint-disable-next-line
   const history = useHistory();
   //Traemos todos los temperaments, selecionando el estado temperaments.
   const allTemperaments = useSelector((state) => state.temperaments);
@@ -115,12 +116,11 @@ export default function Form() {
   //Creamos un objeto inputValue. En este estado-objeto se guarda todo lo que ingrese el usuario.
   const [inputValue, setInputValue] = useState({
     name: '',
-    height_minimun: 0,
-    height_maximun: 0,
-    weight_minimun: 0,
-    weight_maximun: 0,
+    minimun_height: 0,
+    maximun_height: 0,
+    minimun_weight: 0,
+    maximun_weight: 0,
     lifespan: 0,
-    image: '',
     temperament: [],
   });
 
@@ -133,7 +133,7 @@ export default function Form() {
       ...inputValue,
       [inputClient.target.name]: inputClient.target.value,
     });
-    console.log(inputClient.target.value);
+
     //Pasamos la data (inputValue) por validationData y si tiene errores, llema el objeto errors.
     setErrors(
       validationData({
@@ -151,16 +151,19 @@ export default function Form() {
   //*TEMPERAMENT (pueden haber varios):
   //Toma el inputClient (del temperament) y verifica que en inputValue no este el temperament ya puesto o repetido.
   const handleSelect = (inputClient) => {
-    if (!inputValue.temperament.includes(inputClient.target.value)) {
-      //Si no esta repetido, lo agrega a la var inputValue en la parte de temperament.
+    //Sacamos el value seleccionado.
+    const { value } = inputClient.target;
+    //Si no esta repetido, lo agrega a la var inputValue en la parte de temperament.
+    if (!inputValue.temperament.includes(value)) {
       setInputValue({
         ...inputValue,
-        temperament: [...inputValue.temperament, inputClient.target.value],
+        temperament: [...inputValue.temperament, value],
       });
     } else {
       //Si ya está escogido, ponemos un alert.
       alert('This temperament is already chosen.');
     }
+    console.log(inputValue.temperament);
   };
 
   //*BORRAR UN TEMPERAMENT ESCOGIDO:
@@ -173,33 +176,34 @@ export default function Form() {
   };
 
   //*SUBMIT
-  const handleSubmit = (inputValue) => {
+  const handleSubmit = (e) => {
     //Prevenimos que se puedan submitear los valores de inputValue por default.
-    inputValue.preventDefault();
-    //Despachamos la action POST con el valor del inputValue.
+    e.preventDefault();
+    //Despachamos la action POST con el valor del inputValue. El action toma a inputValue como "data" JSON.
     dispatch(postDog(inputValue));
     //Confirmamos la creación.
     alert('The dog was created successfully.');
 
-    //Vaciamos a inputValue.
+    // Vaciamos a inputValue.
+
     setInputValue({
       name: '',
-      height_minimun: 0,
-      height_maximun: 0,
-      weight_minimun: 0,
-      weight_maximun: 0,
+      minimun_height: 0,
+      maximun_height: 0,
+      minimun_weight: 0,
+      maximun_weight: 0,
       lifespan: 0,
       temperament: [],
     });
 
     //Volvemos a home.
-    history.push('/home');
+    //history.push('/home');
   };
 
   return (
-    <div className={style.background}>
+    <div className={style.Form_container}>
       {/* TITLE */}
-      <div className={style.titulo}>
+      <div className={style.title}>
         <h1>NEW DOG FORM!</h1>
         <h4>Please fill all the information.</h4>
       </div>
@@ -229,8 +233,8 @@ export default function Form() {
               min='0'
               className={style.numInput}
               type='number'
-              value={inputValue.weight_minimun}
-              name='weight_minimun'
+              value={inputValue.minimun_weight}
+              name='minimun_weight'
               onChange={(e) => handleChange(e)}
             />
           </div>
@@ -242,8 +246,8 @@ export default function Form() {
               min='0'
               className={style.numInput}
               type='number'
-              value={inputValue.weight_maximun}
-              name='weight_maximun'
+              value={inputValue.maximun_weight}
+              name='maximun_weight'
               onChange={(e) => handleChange(e)}
             />
           </div>
@@ -255,8 +259,8 @@ export default function Form() {
               min='0'
               className={style.numInput}
               type='number'
-              value={inputValue.height_minimun}
-              name='height_minimun'
+              value={inputValue.minimun_height}
+              name='minimun_height'
               onChange={(e) => handleChange(e)}
             />
           </div>
@@ -268,8 +272,8 @@ export default function Form() {
               min='0'
               className={style.numInput}
               type='number'
-              value={inputValue.height_maximun}
-              name='height_maximun'
+              value={inputValue.maximun_height}
+              name='maximun_height'
               onChange={(e) => handleChange(e)}
             />
           </div>
@@ -291,7 +295,7 @@ export default function Form() {
           <div className={style.items}>
             <h3>Temperaments: </h3>
             <select className={style.numInput} onChange={handleSelect}>
-              <option value='all' disabled selected defaultValue>
+              <option value='all' disabled>
                 Choose a temperament.
               </option>
               {/* Mapeamos a los temperaments, mostrar las opciones */}
@@ -304,6 +308,41 @@ export default function Form() {
               })}
             </select>
           </div>
+
+          {/* Si existe errors && alguno de los siguientes errores, no mostramos el botón.*/}
+          {/* Si no hay errores, dejamos publicarlo. 
+        Recuerda: errors es el estado que guarda los errores.*/}
+          {console.log(errors)}
+          {errors &&
+          (errors.name ||
+            errors.name2 ||
+            errors.minimun_height ||
+            errors.maximun_height ||
+            errors.minimun_weight ||
+            errors.maximun_weight ||
+            errors.lifespan ||
+            errors.biggerh ||
+            errors.biggerw ||
+            errors.temperament_lenght ||
+            //Si los valores son 0 o menores.
+            !inputValue.name.length ||
+            inputValue.minimun_height <= 0 ||
+            inputValue.maximun_height <= 0 ||
+            inputValue.minimun_weight <= 0 ||
+            inputValue.maximun_weight <= 0 ||
+            inputValue.lifespan <= 0 ||
+            //Si los minimun son mayores que los maximun.
+            inputValue.minimun_height >= inputValue.maximun_height ||
+            inputValue.minimun_weight >= inputValue.maximun_weight ||
+            !inputValue.temperament.length) ? (
+            <div className={style.btnh2}>
+              Dog creation is still in progress (errors found).
+            </div>
+          ) : (
+            <button className={style.btn} type='submit'>
+              Create Doggy!
+            </button>
+          )}
         </form>
         {/* Mostramos los temperaments agregados */}
         <div className={style.moodDiv}>
@@ -321,40 +360,7 @@ export default function Form() {
             );
           })}
         </div>
-        {/* Si existe errors && alguno de los siguientes errores, no mostramos el botón.*/}
-        {/* Si no hay errores, dejamos publicarlo. 
-        Recuerda: errors es el estado que guarda los errores.*/}
-        {console.log(errors)}
-        {errors &&
-        (errors.name ||
-          errors.name2 ||
-          errors.height_minimun ||
-          errors.height_maximun ||
-          errors.weight_minimun ||
-          errors.weight_maximun ||
-          errors.lifespan ||
-          errors.biggerh ||
-          errors.biggerw ||
-          errors.temperament_lenght ||
-          //Si los valores son 0 o menores.
-          !inputValue.name.length ||
-          inputValue.height_minimun <= 0 ||
-          inputValue.height_maximun <= 0 ||
-          inputValue.weight_minimun <= 0 ||
-          inputValue.weight_maximun <= 0 ||
-          inputValue.lifespan <= 0 ||
-          //Si los minimun son mayores que los maximun.
-          inputValue.height_minimun >= inputValue.height_maximun ||
-          inputValue.weight_minimun >= inputValue.weight_maximun ||
-          !inputValue.temperament.length) ? (
-          <div className={style.btnh2}>
-            Dog creation is still in progress (errors found).
-          </div>
-        ) : (
-          <button className={style.btn} type='submit'>
-            Create Doggy!
-          </button>
-        )}
+
         {/* Mostramos los errores: */}
         {/* Usamos los nombres con los que se guardan en el objeto objectContainer. */}
         {/* Si, el objeto errors (del useState) guarda un error con el nombre puesto en validation, se muestra el <p> con el mensaje (que contiene el objeto - error)*/}
@@ -366,36 +372,51 @@ export default function Form() {
               {/* Hacemos que las cosas se muestren por medio de la condicion &&. EJ: Si existe esto && se hace esto. (Tenemos que agregar) */}
               <h2>
                 {(Object.keys(errors).length > 0 ||
-                  !inputValue.temperament.length) && (
-                  <p> There are some errors </p>
-                )}
+                  !inputValue.temperament.length) && <p> Have in mind </p>}
               </h2>
+
               <div className={style.errorStyle}>
                 {/* El && es un condicional. 
                     EJ: Si existe este error && se muestra esto. */}
-                <p>{errors.name && <p> {errors.name} </p>}</p>
-                <p>{errors.name2 && <p> {errors.name2} </p>}</p>
-                <p>
-                  {errors.height_minimun && <p> {errors.height_minimun} </p>}
-                </p>
-                <p>
-                  {errors.height_maximun && <p> {errors.height_maximun} </p>}
-                </p>
-                <p>
-                  {errors.weight_minimun && <p> {errors.weight_minimun} </p>}
-                </p>
-                <p>
-                  {errors.weight_maximun && <p> {errors.weight_maximun} </p>}
-                </p>
-                <p>{errors.biggerh && <p> {errors.biggerh} </p>}</p>
-                <p>{errors.biggerw && <p> {errors.biggerw} </p>}</p>
-                <p>{errors.lifespan && <p> {errors.lifespan} </p>}</p>
+                <h4>{errors.name && <p> {errors.name} </p>}</h4>
+                <h4>{errors.name2 && <p> {errors.name2} </p>}</h4>
+                {/* Only Contain Numbers */}
+                <h4>
+                  {errors.minimun_height && <p> {errors.minimun_height} </p>}
+                </h4>
+                <h4>
+                  {errors.maximun_height && <p> {errors.maximun_height} </p>}
+                </h4>
+                <h4>
+                  {errors.minimun_weight && <p> {errors.minimun_weight} </p>}
+                </h4>
+                <h4>
+                  {errors.maximun_weight && <p> {errors.maximun_weight} </p>}
+                </h4>
+                {/* Cannot be 0 */}
+                <h4>
+                  {errors.minimun_height0 && <p> {errors.minimun_height0} </p>}
+                </h4>
+                <h4>
+                  {errors.maximun_height0 && <p> {errors.maximun_height0} </p>}
+                </h4>
+                <h4>
+                  {errors.minimun_weight0 && <p> {errors.minimun_weight0} </p>}
+                </h4>
+                <h4>
+                  {errors.maximun_weight0 && <p> {errors.maximun_weight} </p>}
+                </h4>
+                {/* + BIGGER -  */}
+                <h4>{errors.biggerh && <p> {errors.biggerh} </p>}</h4>
+                <h4>{errors.biggerw && <p> {errors.biggerw} </p>}</h4>
+                {/* LIFESPAN */}
+                <h4>{errors.lifespan && <p> {errors.lifespan} </p>}</h4>
                 {/* Lo hacemos manual. Si en el objeto de respuesta del user no hay temp, mostramos el mensaje. */}
-                <p>
+                <h4>
                   {!inputValue.temperament.length && (
                     <p>You must select at least one temperament. </p>
                   )}
-                </p>
+                </h4>
               </div>
             </div>
           </div>

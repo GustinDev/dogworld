@@ -151,10 +151,11 @@ export default function Form() {
   //*TEMPERAMENT (pueden haber varios):
   //Toma el inputClient (del temperament) y verifica que en inputValue no este el temperament ya puesto o repetido.
   const handleSelect = (inputClient) => {
-    //Sacamos el value seleccionado.
+    //Tomamos el temperament seleccionado como value.
     const { value } = inputClient.target;
     //Si no esta repetido, lo agrega a la var inputValue en la parte de temperament.
     if (!inputValue.temperament.includes(value)) {
+      //Dejamos los otros inputValue, en temperament dejamos los que ya estaban y agregamos el nuevo value.
       setInputValue({
         ...inputValue,
         temperament: [...inputValue.temperament, value],

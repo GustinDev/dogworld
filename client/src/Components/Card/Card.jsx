@@ -34,11 +34,9 @@ export default function Card({
 
           <h4 className={style.card_list_title}>Temperaments:</h4>
           <ul className={style.card_list}>
-            <li>
-              {tempFinal?.map((temp, index) => {
-                return <li key={index}>🌍{temp}</li>;
-              })}
-            </li>
+            {tempFinal?.map((temp, index) => {
+              return <li key={index}>🌍{temp}</li>;
+            })}
           </ul>
         </div>
       </Link>

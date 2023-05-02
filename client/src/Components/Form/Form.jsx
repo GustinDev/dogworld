@@ -24,8 +24,8 @@ const validationData = (input) => {
     errorsContainer.name = 'There must be a name.';
   }
 
-  if (input.name && !/^[a-zA-Z]*$/.test(input.name)) {
-    errorsContainer.name = 'The name only can contain letters.';
+  if (input.name && !/^([a-zA-Z ]){2,30}$/.test(input.name)) {
+    errorsContainer.name2 = 'The name only can contain letters an spaces.';
   }
 
   //Height - Weight < 0
@@ -52,29 +52,33 @@ const validationData = (input) => {
 
   //MENOR NO PUEDE SER MAYOR:
 
-  if (parseInt(input.height_minimun) >= parseInt(input.height_maximun)) {
+  if (parseInt(input.height_minimun) > parseInt(input.height_maximun)) {
     errorsContainer.biggerh =
       "Minimun height shouldn't be greater than maximun height.";
   }
 
-  if (parseInt(input.weight_minimun) >= parseInt(input.weight_maximun)) {
+  if (parseInt(input.weight_minimun) > parseInt(input.weight_maximun)) {
     errorsContainer.biggerw =
       "Minimun weight shouldn't be greater than maximun weight.";
   }
 
   //Height - Weight - Only numbers.
 
-  if (input.height) {
+  if (input.height_minimun) {
+    if (!/^[0-9]*$/) {
+      errorsContainer.height = 'The height can only contain numbers.';
+    }
+  }
+
+  if (input.height_maximun) {
     if (!/^[0-9]*$/) {
       errorsContainer.height = 'The height can only contain numbers.';
     }
   }
 
   if (input.weight_minimun) {
-    if (input.weight_maximun) {
-      if (!/^[0-9]*$/) {
-        errorsContainer.weight_minimun = 'The weight can only contain numbers.';
-      }
+    if (!/^[0-9]*$/) {
+      errorsContainer.weight_minimun = 'The weight can only contain numbers.';
     }
   }
 
@@ -108,7 +112,7 @@ export default function Form() {
   const allTemperaments = useSelector((state) => state.temperaments);
   //Creamos el objeto errors y lo dejamos como objeto vacio. Guardamos los errors de la verificacion aquí.
   const [errors, setErrors] = useState({});
-  //Creamos un objeto input, donde se va a guardar lo que ingrese el cliente. Su valor inicial es 0.
+  //Creamos un objeto inputValue. En este estado-objeto se guarda todo lo que ingrese el usuario.
   const [inputValue, setInputValue] = useState({
     name: '',
     height_minimun: 0,
@@ -158,8 +162,6 @@ export default function Form() {
       alert('This temperament is already chosen.');
     }
   };
-
-  console.log(handleSelect);
 
   //*BORRAR UN TEMPERAMENT ESCOGIDO:
   const handleErase = (temp) => {
@@ -222,7 +224,7 @@ export default function Form() {
 
           {/* - WEIGHT */}
           <div className={style.items}>
-            <h3>Minumin Weight: </h3>
+            <h3>Minumin Weight (kg): </h3>
             <input
               min='0'
               className={style.numInput}
@@ -235,7 +237,7 @@ export default function Form() {
 
           {/* + WEIGHT */}
           <div className={style.items}>
-            <h3>Maximun Weight: </h3>
+            <h3>Maximun Weight (kg): </h3>
             <input
               min='0'
               className={style.numInput}
@@ -248,20 +250,7 @@ export default function Form() {
 
           {/* + HEIGHT */}
           <div className={style.items}>
-            <h3>Minumin Height:</h3>
-            <input
-              min='0'
-              className={style.numInput}
-              type='number'
-              value={inputValue.height_maximun}
-              name='height_maximun'
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-
-          {/* - HEIGHT */}
-          <div className={style.items}>
-            <h3>Maximun Height:</h3>
+            <h3>Minumin Height (cm):</h3>
             <input
               min='0'
               className={style.numInput}
@@ -272,9 +261,22 @@ export default function Form() {
             />
           </div>
 
+          {/* - HEIGHT */}
+          <div className={style.items}>
+            <h3>Maximun Height (cm):</h3>
+            <input
+              min='0'
+              className={style.numInput}
+              type='number'
+              value={inputValue.height_maximun}
+              name='height_maximun'
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
+
           {/* LIFESPAN */}
           <div className={style.items}>
-            <h3>Lifespan:</h3>
+            <h3>Lifespan (years):</h3>
             <input
               min='0'
               className={style.numInput}
@@ -319,16 +321,21 @@ export default function Form() {
             );
           })}
         </div>
-        {/* Confirmamos que existe errors, si sí, seguimos  con el paréntesis*/}
-        {/* Mostramos que hay errores y aun no se puede seguir. */}
+        {/* Si existe errors && alguno de los siguientes errores, no mostramos el botón.*/}
+        {/* Si no hay errores, dejamos publicarlo. 
+        Recuerda: errors es el estado que guarda los errores.*/}
+        {console.log(errors)}
         {errors &&
         (errors.name ||
-          // Si hay algún error.
+          errors.name2 ||
           errors.height_minimun ||
           errors.height_maximun ||
           errors.weight_minimun ||
           errors.weight_maximun ||
           errors.lifespan ||
+          errors.biggerh ||
+          errors.biggerw ||
+          errors.temperament_lenght ||
           //Si los valores son 0 o menores.
           !inputValue.name.length ||
           inputValue.height_minimun <= 0 ||
@@ -354,38 +361,44 @@ export default function Form() {
         <div className={style.errorStyle}>
           {/* Hacemos un condicional terciario, si hay errores en el estado errors, se muestra un div con los errors. Si no, nada. */}
 
-          {/* Instrucciones: Que funcione mediante un boton check. Y si si, deje publicar el perro, si no, que muestre los errors. */}
-
-          {Object.keys(errors).lenght !== 0 ? (
+          <div>
             <div>
-              <h2>There are some errors:</h2>
+              {/* Hacemos que las cosas se muestren por medio de la condicion &&. EJ: Si existe esto && se hace esto. (Tenemos que agregar) */}
+              <h2>
+                {(Object.keys(errors).length > 0 ||
+                  !inputValue.temperament.length) && (
+                  <p> There are some errors </p>
+                )}
+              </h2>
               <div className={style.errorStyle}>
                 {/* El && es un condicional. 
-            EJ: Si se cumple esta parte && se ejecuta esto. */}
+                    EJ: Si existe este error && se muestra esto. */}
                 <p>{errors.name && <p> {errors.name} </p>}</p>
-
+                <p>{errors.name2 && <p> {errors.name2} </p>}</p>
                 <p>
                   {errors.height_minimun && <p> {errors.height_minimun} </p>}
                 </p>
-
                 <p>
                   {errors.height_maximun && <p> {errors.height_maximun} </p>}
                 </p>
-
                 <p>
                   {errors.weight_minimun && <p> {errors.weight_minimun} </p>}
                 </p>
-
                 <p>
                   {errors.weight_maximun && <p> {errors.weight_maximun} </p>}
                 </p>
-
+                <p>{errors.biggerh && <p> {errors.biggerh} </p>}</p>
+                <p>{errors.biggerw && <p> {errors.biggerw} </p>}</p>
                 <p>{errors.lifespan && <p> {errors.lifespan} </p>}</p>
-
-                <p>{errors.temperament && <p> {errors.temperament} </p>}</p>
+                {/* Lo hacemos manual. Si en el objeto de respuesta del user no hay temp, mostramos el mensaje. */}
+                <p>
+                  {!inputValue.temperament.length && (
+                    <p>You must select at least one temperament. </p>
+                  )}
+                </p>
               </div>
             </div>
-          ) : null}
+          </div>
         </div>
       </div>
       <Link to='/home'>

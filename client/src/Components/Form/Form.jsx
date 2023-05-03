@@ -217,110 +217,148 @@ export default function Form() {
   return (
     <div className={style.all_container}>
       {/* TITLE */}
-      <div className={style.title}>
-        <h1>NEW DOG FORM!</h1>
-        <h4>Please fill all the information.</h4>
+      <div className={style.form_nav}>
+        <div className={style.form_title}>
+          <h1>LET'S CREATE A NEW DOG!</h1>
+          <h4>Please fill all the information.</h4>
+        </div>
+        <Link to='/home'>
+          <button className={style.form_home_button}>Go Back!</button>
+        </Link>
       </div>
-      {/* Container  */}
-      <div className={style.contenedor}>
-        {/* Le damos el handleSubmit al form */}
-        <form className={style.formStyle} onSubmit={(e) => handleSubmit(e)}>
-          {/* Debe haber una doble relación, por eso value es inputValue (a pesar de asignarlo con useEffect) */}
 
+      {/* Container  */}
+      <div className={style.form_card_container}>
+        {/* Le damos el handleSubmit al form */}
+        <form
+          className={style.form_description}
+          onSubmit={(e) => handleSubmit(e)}
+        >
+          {/* Debe haber una doble relación, por eso value es inputValue (a pesar de asignarlo con useEffect) */}
           {/* NAME */}
-          <div className={style.items}>
+          <div className={style.item_container}>
             <h3>Name:</h3>
             <input
               required
-              className={style.numInput}
+              className={style.item_input_name}
               type='text'
               value={inputValue.name}
               name='name'
               onChange={(e) => handleChange(e)}
             />
           </div>
+          {/* Weight */}
+          <div className={style.weight_container}>
+            {/* - WEIGHT */}
+            <div className={style.item_container}>
+              <h3>Minumin Weight (kg): </h3>
+              <input
+                min='0'
+                className={style.item_input}
+                type='number'
+                value={inputValue.minimun_weight}
+                name='minimun_weight'
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
 
-          {/* - WEIGHT */}
-          <div className={style.items}>
-            <h3>Minumin Weight (kg): </h3>
-            <input
-              min='0'
-              className={style.numInput}
-              type='number'
-              value={inputValue.minimun_weight}
-              name='minimun_weight'
-              onChange={(e) => handleChange(e)}
-            />
+            {/* + WEIGHT */}
+            <div className={style.item_container}>
+              <h3>Maximun Weight (kg): </h3>
+              <input
+                min='0'
+                className={style.item_input}
+                type='number'
+                value={inputValue.maximun_weight}
+                name='maximun_weight'
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
           </div>
+          {/* Height */}
+          <div className={style.height_container}>
+            {/* + HEIGHT */}
+            <div className={style.item_container}>
+              <h3>Minumin Height (cm):</h3>
+              <input
+                min='0'
+                className={style.item_input}
+                type='number'
+                value={inputValue.minimun_height}
+                name='minimun_height'
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
 
-          {/* + WEIGHT */}
-          <div className={style.items}>
-            <h3>Maximun Weight (kg): </h3>
-            <input
-              min='0'
-              className={style.numInput}
-              type='number'
-              value={inputValue.maximun_weight}
-              name='maximun_weight'
-              onChange={(e) => handleChange(e)}
-            />
+            {/* - HEIGHT */}
+            <div className={style.item_container}>
+              <h3>Maximun Height (cm):</h3>
+              <input
+                min='0'
+                className={style.item_input}
+                type='number'
+                value={inputValue.maximun_height}
+                name='maximun_height'
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
           </div>
-
-          {/* + HEIGHT */}
-          <div className={style.items}>
-            <h3>Minumin Height (cm):</h3>
-            <input
-              min='0'
-              className={style.numInput}
-              type='number'
-              value={inputValue.minimun_height}
-              name='minimun_height'
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-
-          {/* - HEIGHT */}
-          <div className={style.items}>
-            <h3>Maximun Height (cm):</h3>
-            <input
-              min='0'
-              className={style.numInput}
-              type='number'
-              value={inputValue.maximun_height}
-              name='maximun_height'
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-
-          {/* LIFESPAN */}
-          <div className={style.items}>
-            <h3>Lifespan (years):</h3>
-            <input
-              min='0'
-              className={style.numInput}
-              type='number'
-              value={inputValue.lifespan}
-              name='lifespan'
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-
-          {/* TEMPERAMENTS */}
-          <div className={style.items}>
-            <h3>Temperaments: </h3>
-            <select className={style.numInput} onChange={handleSelect}>
-              <option value='all' disabled>
-                Choose a temperament.
-              </option>
-              {/* Mapeamos a los temperaments, mostrar las opciones */}
-              {allTemperaments.map((e) => {
-                return (
-                  <option value={e.name} key={e.id}>
-                    {e.name}
+          {/* TEMP AND LIFESPAN */}
+          <div className={style.tyl_big_container}>
+            <div className={style.tyl_container}>
+              {/* TEMPERAMENTS */}
+              <div className={style.item_container}>
+                <h3>Temperaments: </h3>
+                <select className={style.item_input} onChange={handleSelect}>
+                  <option value='all' disabled>
+                    Choose a temperament.
                   </option>
+                  {/* Mapeamos a los temperaments, mostrar las opciones */}
+                  {allTemperaments.map((temp) => {
+                    return (
+                      <option
+                        value={temp.name}
+                        key={temp.id}
+                        className={style.item_option}
+                      >
+                        {temp.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+
+              {/* LIFESPAN */}
+              <div className={style.item_container}>
+                <h3>Lifespan (years):</h3>
+                <input
+                  min='0'
+                  className={style.item_input}
+                  type='number'
+                  value={inputValue.lifespan}
+                  name='lifespan'
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+            </div>
+
+            {/* SHOW TEMPERAMENTS
+            Mostramos los temperaments agregados */}
+            <div className={style.moodDiv}>
+              {inputValue.temperament.map((temp, i) => {
+                return (
+                  <div key={i++}>
+                    <div className={style.btnh3}> {temp} </div>
+                    <button
+                      className={style.eraserbtn}
+                      onClick={() => handleErase(temp)}
+                    >
+                      X
+                    </button>
+                  </div>
                 );
               })}
-            </select>
+            </div>
           </div>
 
           {/* BUTTON CREATE
@@ -350,96 +388,84 @@ export default function Form() {
             inputValue.minimun_height >= inputValue.maximun_height ||
             inputValue.minimun_weight >= inputValue.maximun_weight ||
             !inputValue.temperament.length) ? (
-            <div className={style.btnh2}>
+            <div className={style.progress}>
               Dog creation is still in progress (errors found).
             </div>
           ) : (
-            <button className={style.btn} type='submit'>
+            <button className={style.form_button} type='submit'>
               Create Doggy!
             </button>
           )}
         </form>
 
-        {/* TEMPERAMENTS
-        Mostramos los temperaments agregados */}
-        <div className={style.moodDiv}>
-          {inputValue.temperament.map((temp, i) => {
-            return (
-              <div key={i++}>
-                <div className={style.btnh3}> {temp} </div>
-                <button
-                  className={style.eraserbtn}
-                  onClick={() => handleErase(temp)}
-                >
-                  X
-                </button>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* ERRORES: */}
-        {/* Usamos los nombres con los que se guardan en el objeto errorContainer. */}
-        {/* Si, el objeto errors (del useState) guarda un error con el nombre puesto en validation, se muestra el <p> con el mensaje (que contiene el objeto - error)*/}
-        <div className={style.errorStyle}>
-          <div>
+        <div className={style.all_error_container}>
+          {/* ERRORES: */}
+          {/* Usamos los nombres con los que se guardan en el objeto errorContainer. */}
+          {/* Si, el objeto errors (del useState) guarda un error con el nombre puesto en validation, se muestra el <p> con el mensaje (que contiene el objeto - error)*/}
+          <div className={style.error_container}>
             <div>
               {/* Hacemos que las cosas se muestren por medio de la condicion &&. EJ: Si existe este error && se muesta este mensaje. */}
-              <h2>
+              <div className={style.error_title_container}>
                 {(Object.keys(errors).length > 0 ||
-                  !inputValue.temperament.length) && <p> Have in mind </p>}
-              </h2>
+                  !inputValue.temperament.length) && <h2> Control Panel </h2>}
+                <p>Please have in mind:</p>
+              </div>
 
-              <div className={style.errorStyle}>
+              <div className={style.error_item_container}>
                 {/* El && es un condicional. 
                     EJ: Si existe este error && se muestra esto. */}
-                <h4>{errors.name && <p> {errors.name} </p>}</h4>
-                <h4>{errors.name2 && <p> {errors.name2} </p>}</h4>
+                <div>{errors.name && <p>❕ {errors.name} </p>}</div>
+                <div>{errors.name2 && <p>❕ {errors.name2} </p>}</div>
                 {/* Only Contain Numbers */}
-                <h4>
-                  {errors.minimun_height && <p> {errors.minimun_height} </p>}
-                </h4>
-                <h4>
-                  {errors.maximun_height && <p> {errors.maximun_height} </p>}
-                </h4>
-                <h4>
-                  {errors.minimun_weight && <p> {errors.minimun_weight} </p>}
-                </h4>
-                <h4>
-                  {errors.maximun_weight && <p> {errors.maximun_weight} </p>}
-                </h4>
+                <div>
+                  {errors.minimun_height && <p>❕ {errors.minimun_height} </p>}
+                </div>
+                <div>
+                  {errors.maximun_height && <p>❕ {errors.maximun_height} </p>}
+                </div>
+                <div>
+                  {errors.minimun_weight && <p>❕ {errors.minimun_weight} </p>}
+                </div>
+                <div>
+                  {errors.maximun_weight && <p>❕ {errors.maximun_weight} </p>}
+                </div>
                 {/* Cannot be 0 */}
-                <h4>
-                  {errors.minimun_height0 && <p> {errors.minimun_height0} </p>}
-                </h4>
-                <h4>
-                  {errors.maximun_height0 && <p> {errors.maximun_height0} </p>}
-                </h4>
-                <h4>
-                  {errors.minimun_weight0 && <p> {errors.minimun_weight0} </p>}
-                </h4>
-                <h4>
-                  {errors.maximun_weight0 && <p> {errors.maximun_weight} </p>}
-                </h4>
-                {/* + BIGGER -  */}
-                <h4>{errors.biggerh && <p> {errors.biggerh} </p>}</h4>
-                <h4>{errors.biggerw && <p> {errors.biggerw} </p>}</h4>
-                {/* LIFESPAN */}
-                <h4>{errors.lifespan && <p> {errors.lifespan} </p>}</h4>
-                {/* Lo hacemos manual. Si en el objeto de respuesta del user no hay temp, mostramos el mensaje. */}
-                <h4>
-                  {!inputValue.temperament.length && (
-                    <p>You must select at least one temperament. </p>
+                <div>
+                  {errors.minimun_height0 && (
+                    <p>❕ {errors.minimun_height0} </p>
                   )}
-                </h4>
+                </div>
+                <div>
+                  {errors.maximun_height0 && (
+                    <p>❕ {errors.maximun_height0} </p>
+                  )}
+                </div>
+                <div>
+                  {errors.minimun_weight0 && (
+                    <p>❕ {errors.minimun_weight0} </p>
+                  )}
+                </div>
+                <div>
+                  {errors.maximun_weight0 && (
+                    <p>❕ {errors.maximun_weight0} </p>
+                  )}
+                </div>
+                {/* + BIGGER -  */}
+                <div>{errors.biggerh && <p>❕ {errors.biggerh} </p>}</div>
+                <div>{errors.biggerw && <p>❕ {errors.biggerw} </p>}</div>
+                {/* LIFESPAN */}
+                <div>{errors.lifespan && <p>❕ {errors.lifespan} </p>}</div>
+                {/* Lo hacemos manual. Si en el objeto de respuesta del user no hay temp, mostramos el mensaje. */}
+                <div>
+                  {!inputValue.temperament.length && (
+                    <p>❕ You must select at least one temperament. </p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <Link to='/home'>
-        <button className={style.btn}>HOME</button>
-      </Link>
     </div>
   );
 }

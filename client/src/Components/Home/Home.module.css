@@ -1,6 +1,4 @@
 /*
- YELLOW: #FFC93C
- YELLOW BACK:  #f3d26e
 BLUE: #3598DC
 BLUE - SHADOW: #1875b3
 BLUE - WAVES #6bbcf3
@@ -114,7 +112,6 @@ header {
   padding-bottom: 5px;
   padding-left: 10px;
   padding-right: 10px;
-
   outline: 0;
   cursor: pointer;
   border: 0px solid #000;

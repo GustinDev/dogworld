@@ -7,7 +7,7 @@ import { postDog, getTemperaments } from '../../redux/actions/actions';
 //CSS
 import style from './Form.module.css';
 
-//Validamos la data ingresada, agregamos error en caso de error.
+//Validamos la data ingresada.
 
 const validationData = (input) => {
   //Guardamos los errores.
@@ -103,17 +103,22 @@ const validationData = (input) => {
   return errorsContainer;
 };
 
-//Creamos el formulario.
+//*FORM
+
 export default function Form() {
-  //useDispatch: Accedemos a los dipatch (estados despachados).
+  //useDispatch: Accedemos a los dipatch (estados globales despachados).
   const dispatch = useDispatch();
+
   // eslint-disable-next-line
   const history = useHistory();
+
   //Traemos todos los temperaments, selecionando el estado temperaments.
+
   const allTemperaments = useSelector((state) => state.temperaments);
   //Creamos el objeto errors y lo dejamos como objeto vacio. Guardamos los errors de la verificacion aquí.
   const [errors, setErrors] = useState({});
-  //Creamos un objeto inputValue. En este estado-objeto se guarda todo lo que ingrese el usuario.
+
+  //Creamos un objeto inputValue. En este estado-objeto se guarda todo lo que ingrese el usuario en los input (esto pero actualizado es lo que POSTEAMOS).
   const [inputValue, setInputValue] = useState({
     name: '',
     minimun_height: 0,
@@ -124,7 +129,11 @@ export default function Form() {
     temperament: [],
   });
 
-  //*CUANDO HAYA CAMBIOS
+  //*CAMBIOS EN INPUT - INGRESO DE DATA
+
+  //?InputValue = Objeto "final" que guarda los datos del input.
+  //?InputClient = Lo que ingresa el usuario en cada input.
+
   //Tomamos el inputClient y le pasamos el varlor a InputValue.
   //Cada input tiene un name distinto, que se llena con su value correspondiente.
   const handleChange = (inputClient) => {
@@ -132,6 +141,7 @@ export default function Form() {
     setInputValue({
       ...inputValue,
       [inputClient.target.name]: inputClient.target.value,
+      //EJ: lifespan: 5
     });
 
     //Pasamos la data (inputValue) por validationData y si tiene errores, llema el objeto errors.
@@ -143,19 +153,22 @@ export default function Form() {
     );
     console.log(inputValue);
   };
+
+  //*EFFECT
   //Renderiza la action getTemperamets (y trae los temperaments) cada que se inicie el Componente y cada que dispatch se actualice.
   useEffect(() => {
     dispatch(getTemperaments());
   }, [dispatch]);
 
   //*TEMPERAMENT (pueden haber varios):
-  //Toma el inputClient (del temperament) y verifica que en inputValue no este el temperament ya puesto o repetido.
+  //Toma el inputClient (del temperament) y verifica que en inputValue no este el temperament repetido.
   const handleSelect = (inputClient) => {
     //Tomamos el temperament seleccionado como value.
     const { value } = inputClient.target;
+
     //Si no esta repetido, lo agrega a la var inputValue en la parte de temperament.
     if (!inputValue.temperament.includes(value)) {
-      //Dejamos los otros inputValue, en temperament dejamos los que ya estaban y agregamos el nuevo value.
+      //Dejamos los otros inputValue.temperament, en temperament dejamos los que ya estaban y agregamos el nuevo value.
       setInputValue({
         ...inputValue,
         temperament: [...inputValue.temperament, value],
@@ -198,17 +211,17 @@ export default function Form() {
     });
 
     //Volvemos a home.
-    //history.push('/home');
+    history.push('/home');
   };
 
   return (
-    <div className={style.Form_container}>
+    <div className={style.all_container}>
       {/* TITLE */}
       <div className={style.title}>
         <h1>NEW DOG FORM!</h1>
         <h4>Please fill all the information.</h4>
       </div>
-      {/* SPECS  */}
+      {/* Container  */}
       <div className={style.contenedor}>
         {/* Le damos el handleSubmit al form */}
         <form className={style.formStyle} onSubmit={(e) => handleSubmit(e)}>
@@ -310,7 +323,8 @@ export default function Form() {
             </select>
           </div>
 
-          {/* Si existe errors && alguno de los siguientes errores, no mostramos el botón.*/}
+          {/* BUTTON CREATE
+          Si existe errors && alguno de los siguientes errores, no mostramos el botón.*/}
           {/* Si no hay errores, dejamos publicarlo. 
         Recuerda: errors es el estado que guarda los errores.*/}
           {console.log(errors)}
@@ -345,7 +359,9 @@ export default function Form() {
             </button>
           )}
         </form>
-        {/* Mostramos los temperaments agregados */}
+
+        {/* TEMPERAMENTS
+        Mostramos los temperaments agregados */}
         <div className={style.moodDiv}>
           {inputValue.temperament.map((temp, i) => {
             return (
@@ -362,15 +378,13 @@ export default function Form() {
           })}
         </div>
 
-        {/* Mostramos los errores: */}
-        {/* Usamos los nombres con los que se guardan en el objeto objectContainer. */}
+        {/* ERRORES: */}
+        {/* Usamos los nombres con los que se guardan en el objeto errorContainer. */}
         {/* Si, el objeto errors (del useState) guarda un error con el nombre puesto en validation, se muestra el <p> con el mensaje (que contiene el objeto - error)*/}
         <div className={style.errorStyle}>
-          {/* Hacemos un condicional terciario, si hay errores en el estado errors, se muestra un div con los errors. Si no, nada. */}
-
           <div>
             <div>
-              {/* Hacemos que las cosas se muestren por medio de la condicion &&. EJ: Si existe esto && se hace esto. (Tenemos que agregar) */}
+              {/* Hacemos que las cosas se muestren por medio de la condicion &&. EJ: Si existe este error && se muesta este mensaje. */}
               <h2>
                 {(Object.keys(errors).length > 0 ||
                   !inputValue.temperament.length) && <p> Have in mind </p>}

@@ -166,8 +166,9 @@ export default function Home() {
                 {/* {' '} */}
                 Start Again
               </button>
+
               <select onChange={(e) => handlerFilterName(e)}>
-                <option defaultValue disabled>
+                <option disabled selected tabIndex='-1'>
                   Order by Name
                 </option>
                 <option key={1} value='A-Z'>
@@ -179,7 +180,7 @@ export default function Home() {
               </select>
 
               <select onChange={(e) => handlerFilterWeight(e)}>
-                <option defaultValue disabled>
+                <option disabled selected tabIndex='-1'>
                   Order by Weight
                 </option>
                 <option key={1} value='max_weight'>
@@ -191,7 +192,7 @@ export default function Home() {
               </select>
 
               <select onChange={(e) => handlerFilterCreated(e)}>
-                <option defaultValue disabled>
+                <option disabled selected value=''>
                   Order by Source
                 </option>
                 <option key={1} value='all'>
@@ -206,10 +207,11 @@ export default function Home() {
               </select>
 
               <select onChange={(e) => handlerFilterTemperament(e)}>
-                <option defaultValue disabled>
+                <option disabled selected value=''>
                   Temperaments
                 </option>
-                <option key={1 + 'e'} value='All'>
+                {/* Better Key  */}
+                <option key={1 + 'all'} value='All'>
                   All
                 </option>
                 {allTemperaments.map((temp) => (

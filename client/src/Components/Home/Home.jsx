@@ -18,6 +18,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import Paginate from '../Paginated/Paginated';
 //CSS
 import style from './Home.module.css';
+import dogGif from '../../images/dogif.gif';
 
 export default function Home() {
   //TODO: ¿Cómo traer la data?
@@ -166,7 +167,9 @@ export default function Home() {
                 Start Again
               </button>
               <select onChange={(e) => handlerFilterName(e)}>
-                <option defaultValue>Order by Name</option>
+                <option defaultValue disabled>
+                  Order by Name
+                </option>
                 <option key={1} value='A-Z'>
                   Alphabetically (A-Z)
                 </option>
@@ -176,7 +179,9 @@ export default function Home() {
               </select>
 
               <select onChange={(e) => handlerFilterWeight(e)}>
-                <option defaultValue>Order by Weight</option>
+                <option defaultValue disabled>
+                  Order by Weight
+                </option>
                 <option key={1} value='max_weight'>
                   Heavy - Light
                 </option>
@@ -185,20 +190,10 @@ export default function Home() {
                 </option>
               </select>
 
-              <select onChange={(e) => handlerFilterTemperament(e)}>
-                <option defaultValue>Temperaments</option>
-                <option key={1 + 'e'} value='All'>
-                  All
-                </option>
-                {allTemperaments.map((temp) => (
-                  <option value={temp.name} key={temp.id}>
-                    {temp.name}
-                  </option>
-                ))}
-              </select>
-
               <select onChange={(e) => handlerFilterCreated(e)}>
-                <option defaultValue>Order by Source</option>
+                <option defaultValue disabled>
+                  Order by Source
+                </option>
                 <option key={1} value='all'>
                   All Sources
                 </option>
@@ -208,6 +203,20 @@ export default function Home() {
                 <option key={3} value='api'>
                   Created by API
                 </option>
+              </select>
+
+              <select onChange={(e) => handlerFilterTemperament(e)}>
+                <option defaultValue disabled>
+                  Temperaments
+                </option>
+                <option key={1 + 'e'} value='All'>
+                  All
+                </option>
+                {allTemperaments.map((temp) => (
+                  <option value={temp.name} key={temp.id}>
+                    {temp.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -254,8 +263,9 @@ export default function Home() {
         </div>
       ) : (
         // Mientras no cargue, creamos un loading
-        <div>
-          <h1>LOADING</h1>
+        <div className={style.loading_container}>
+          <h1>LOADING!</h1>
+          <img src={dogGif} alt='gif' />
         </div>
       )}
 

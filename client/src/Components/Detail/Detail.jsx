@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDog, clearDetail } from '../../redux/actions/actions';
+//CSS
+import dogGif from '../../images/dogif.gif';
 
 export default function Detail(props) {
   //useDispatch: Accedemos a los dipatch (estados despachados).
@@ -79,9 +81,10 @@ export default function Detail(props) {
           </div>
         </div>
       ) : (
-        <div>
-          {' '}
-          <h1>LOADING</h1>{' '}
+        // Mientras no cargue, creamos un loading
+        <div className={style.loading_container}>
+          <h1>LOADING!</h1>
+          <img src={dogGif} alt='gif' />
         </div>
       )}
     </div>

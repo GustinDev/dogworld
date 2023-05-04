@@ -118,3 +118,29 @@
   background-color: #ed668e;
   box-shadow: 3px 3px 3px #bb4266;
 }
+
+/* LOADING */
+
+.loading_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.loading_container h1 {
+  font-size: 50px;
+  text-decoration: none;
+  color: #ffffff;
+  font-family: 'Lilita One', cursive;
+  letter-spacing: 0.5px;
+  -webkit-text-stroke: 0.1px #1875b3;
+  margin: 0px;
+  margin-top: 20px;
+  margin-bottom: -60px;
+}
+
+.loading_container img {
+  width: 500px;
+  height: 500px;
+}

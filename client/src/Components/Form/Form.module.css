@@ -18,7 +18,7 @@ WHITE: #FFFFFF
   flex-direction: column;
   font-family: 'Roboto', sans-serif;
   width: 1000px;
-  height: 800px;
+  height: 650px;
   background-color: #abd9ff;
   display: flex;
   border-radius: 20px;
@@ -204,6 +204,7 @@ input[type='number'] {
 .tyl_container {
   display: flex;
   width: 500px;
+  margin-bottom: 10px;
 }
 
 .item_option {
@@ -223,7 +224,7 @@ input[type='number'] {
 }
 
 .form_button {
-  margin-top: 15px;
+  margin-top: 0px;
   font-size: 23px;
   width: 200px;
   height: 45px;
@@ -254,6 +255,24 @@ input[type='number'] {
   color: whitesmoke;
   background-color: #ed668e;
   box-shadow: 3px 3px 3px #bb4266;
+}
+
+/* SHOW TEMPERAMENTS */
+
+.temps_container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.temp_item {
+  background-color: #6fbbed;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 2px 2px #339de3;
+  font-weight: 500;
 }
 
 /* ERROR */
@@ -296,6 +315,10 @@ input[type='number'] {
   letter-spacing: 0.5px;
 }
 
+#text {
+  display: none;
+}
+
 .error_title_container p {
   text-align: start !important;
   text-decoration: none;
@@ -304,6 +327,7 @@ input[type='number'] {
   margin: 0px;
   font-weight: 600;
   color: #012437;
+  margin-top: 5px;
 }
 
 .error_item_container {

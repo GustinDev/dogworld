@@ -6,6 +6,7 @@
 
 .search_form {
   text-decoration: none;
+  display: contents;
 }
 
 .search_input {

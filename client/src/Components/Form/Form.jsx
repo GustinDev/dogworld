@@ -344,10 +344,10 @@ export default function Form() {
 
             {/* SHOW TEMPERAMENTS
             Mostramos los temperaments agregados */}
-            <div className={style.moodDiv}>
+            <div className={style.temps_container}>
               {inputValue.temperament.map((temp, i) => {
                 return (
-                  <div key={i++}>
+                  <div key={i++} className={style.temp_item}>
                     <div className={style.btnh3}> {temp} </div>
                     <button
                       className={style.eraserbtn}
@@ -408,7 +408,15 @@ export default function Form() {
               <div className={style.error_title_container}>
                 {(Object.keys(errors).length > 0 ||
                   !inputValue.temperament.length) && <h2> Control Panel </h2>}
-                <p>Please have in mind:</p>
+                {(Object.keys(errors).length > 0 ||
+                  !inputValue.temperament.length) && (
+                  <p>Please have in mind:</p>
+                )}
+                {/* BUG 0 - SOLVED (Terciario) */}
+                {Object.keys(errors).length < 1 &&
+                inputValue.temperament.length ? (
+                  <h2> Everything looks good </h2>
+                ) : null}
               </div>
 
               <div className={style.error_item_container}>

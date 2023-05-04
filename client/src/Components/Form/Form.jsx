@@ -309,8 +309,12 @@ export default function Form() {
               {/* TEMPERAMENTS */}
               <div className={style.item_container}>
                 <h3>Temperaments: </h3>
-                <select className={style.item_input} onChange={handleSelect}>
-                  <option value='all' selected disabled>
+                <select
+                  defaultValue='all'
+                  className={style.item_input}
+                  onChange={handleSelect}
+                >
+                  <option value='all' disabled>
                     Choose a temperament.
                   </option>
                   {/* Mapeamos a los temperaments, mostrar las opciones */}

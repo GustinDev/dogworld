@@ -310,7 +310,7 @@ export default function Form() {
               <div className={style.item_container}>
                 <h3>Temperaments: </h3>
                 <select className={style.item_input} onChange={handleSelect}>
-                  <option value='all' disabled>
+                  <option value='all' selected disabled>
                     Choose a temperament.
                   </option>
                   {/* Mapeamos a los temperaments, mostrar las opciones */}
@@ -412,7 +412,7 @@ export default function Form() {
                   !inputValue.temperament.length) && (
                   <p>Please have in mind:</p>
                 )}
-                {/* BUG 0 - SOLVED (Terciario) */}
+                {/* BUG: Si se seleciona de una, se muestra. */}
                 {Object.keys(errors).length < 1 &&
                 inputValue.temperament.length ? (
                   <h2> Everything looks good </h2>

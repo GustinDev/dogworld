@@ -9,12 +9,11 @@ import {
   FILTER_BY_TEMPERAMENTS,
   FILTER_BY_WEIGHT,
   FILTER_BY_HEIGHT,
+  //FILTER_BY_LIFE,
   FILTER_CREATED_DOG,
   CLEAR_DETAIL,
   POST_DOG,
   //CREAR
-  //FILTER_BY_HEIGHT,
-  //DELETE_DOG
 } from '../action-types/action-types';
 
 //Estados iniciales:
@@ -170,7 +169,6 @@ const reducer = (state = initialState, action) => {
       //Pero están asi:  ["height": "23 - 29", "height": "20 - 22",]
       const filterHeight =
         //Si el payload es "short", vamos de menor a mayor.
-        //! DOCUMENTAR
         action.payload === 'short'
           ? //Sort toma dos elementos de la lista "allHeights" y los compara para determinar su orden en la lista final.
             allHeights.sort((a, b) => {

@@ -9,8 +9,9 @@ import {
   FILTER_BY_WEIGHT,
   FILTER_BY_HEIGHT,
   FILTER_CREATED_DOG,
-  //POST_DOG,
+  FILTER_BY_LIFE,
   CLEAR_DETAIL,
+  //POST_DOG,
 } from '../action-types/action-types';
 
 //Actions: Son objetos que contienen data (payload) y dicen que operación ejecutar (type) sobre el Store. Si queremos actualizar, borrar, filtrar o añadir datos.
@@ -110,6 +111,14 @@ export function filterByWeight(payload) {
 export function filterByHeight(payload) {
   return {
     type: FILTER_BY_HEIGHT,
+    payload,
+  };
+}
+
+//Damos la "orden" filtrar los dogs por lifespan. Recibimos "old" o "young" (del front), lo envíamos en payload si queremos filtrar de menor a mayor.
+export function filterByLife(payload) {
+  return {
+    type: FILTER_BY_LIFE,
     payload,
   };
 }

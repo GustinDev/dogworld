@@ -18,7 +18,9 @@ function Landing() {
       <div className={style.image}>
         <img src={landing_dog} alt='landing_dog' />
       </div>
-      <img src={svg} className={style.waves} alt='svg' />
+      <div className={style.image2}>
+        <img src={svg} className={style.waves} alt='svg' />
+      </div>
     </div>
   );
 }

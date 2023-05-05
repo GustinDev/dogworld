@@ -22,8 +22,8 @@ WHITE: #FFFFFF
 
 .container {
   display: flex;
-  background-color: #c2e0f5;
-
+  background-color: #cce3f5;
+  overflow: hidden;
   justify-content: space-evenly;
   justify-items: end;
   width: 100vw;
@@ -62,13 +62,14 @@ WHITE: #FFFFFF
 .image {
   display: flex;
   align-items: flex-end;
-  width: 800px;
+  width: 900px;
 }
 
 .image img {
-  width: 650px;
-  height: 700px;
+  width: 750px;
+  height: 800px;
   display: flex;
+  padding-left: 100px;
 }
 /* 
 BUTTON */
@@ -103,13 +104,16 @@ BUTTON */
 /* SHAPE */
 
 .waves {
+  margin-top: -80px;
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 250px;
-  width: 3000px;
-  overflow: hidden;
+  height: 425px;
+  width: 1900px;
+  /* width: 1903px; */
   line-height: 0;
   margin-bottom: -30px;
   opacity: 1;
+
+  /* transform: scaleX(-1); */
 }

@@ -9,7 +9,6 @@ import {
   FILTER_BY_WEIGHT,
   FILTER_BY_HEIGHT,
   FILTER_CREATED_DOG,
-  FILTER_BY_LIFE,
   CLEAR_DETAIL,
   //POST_DOG,
 } from '../action-types/action-types';
@@ -111,14 +110,6 @@ export function filterByWeight(payload) {
 export function filterByHeight(payload) {
   return {
     type: FILTER_BY_HEIGHT,
-    payload,
-  };
-}
-
-//Damos la "orden" filtrar los dogs por lifespan. Recibimos "old" o "young" (del front), lo envíamos en payload si queremos filtrar de menor a mayor.
-export function filterByLife(payload) {
-  return {
-    type: FILTER_BY_LIFE,
     payload,
   };
 }

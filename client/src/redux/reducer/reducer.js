@@ -8,6 +8,7 @@ import {
   FILTER_BY_NAME,
   FILTER_BY_TEMPERAMENTS,
   FILTER_BY_WEIGHT,
+  FILTER_BY_HEIGHT,
   FILTER_CREATED_DOG,
   CLEAR_DETAIL,
   POST_DOG,
@@ -80,6 +81,7 @@ const reducer = (state = initialState, action) => {
       };
 
     //*FILTROS
+    //*Los perros se alinean segun el filtro que retornemos. Le damos los pesos ordenados y los dogs (estado) se alinean con esa propiedad.
 
     case FILTER_BY_NAME:
       //En filterDogs se guarda el resultado del filtrado.
@@ -160,6 +162,40 @@ const reducer = (state = initialState, action) => {
         ...state,
         //Pasamos lo filtrado a dogs.
         dogs: filterWeight,
+      };
+
+    case FILTER_BY_HEIGHT:
+      //Sacamos las alturas de los perros en un array.
+      const allHeights = state.allDogs.filter((dog) => dog.height);
+      //Guardamos el filtrado.
+      const filterHeight =
+        //Si el payload es "short", vamos de menor a mayor.
+        //! DOCUMENTAR
+        action.payload === 'short'
+          ? allHeights.sort((a, b) => {
+              const [minA, maxA] = a.height
+                .split(' - ')
+                .map((h) => parseInt(h));
+              const [minB, maxB] = b.height
+                .split(' - ')
+                .map((h) => parseInt(h));
+              return minA - minB || maxA - maxB;
+            })
+          : //Si no, vamos de mayor a menor. Lo revertimos.
+            allHeights.sort((a, b) => {
+              const [minA, maxA] = a.height
+                .split(' - ')
+                .map((h) => parseInt(h));
+              const [minB, maxB] = b.height
+                .split(' - ')
+                .map((h) => parseInt(h));
+              return minB - minA || maxB - maxA;
+            });
+
+      return {
+        ...state,
+        //Pasamos lo filtrado a dogs.
+        dogs: filterHeight,
       };
 
     default:

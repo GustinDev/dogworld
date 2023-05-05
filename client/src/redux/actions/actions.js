@@ -4,13 +4,13 @@ import {
   GET_ALL_TEMPERAMENTS,
   GET_DOG_NAME,
   GET_DOG_DETAIL,
+  FILTER_BY_TEMPERAMENTS,
   FILTER_BY_NAME,
   FILTER_BY_WEIGHT,
-  FILTER_BY_TEMPERAMENTS,
+  FILTER_BY_HEIGHT,
   FILTER_CREATED_DOG,
   //POST_DOG,
   CLEAR_DETAIL,
-  //DELETE_DOG,
 } from '../action-types/action-types';
 
 //Actions: Son objetos que contienen data (payload) y dicen que operación ejecutar (type) sobre el Store. Si queremos actualizar, borrar, filtrar o añadir datos.
@@ -97,11 +97,19 @@ export function filterByName(payload) {
   };
 }
 
-//Damos la "orden" filtrar los dogs por nombre. Recibimos "min_weight" (del front), lo envíamos en payload si queremos filtrar de menor a mayor.
+//Damos la "orden" filtrar los dogs por peso. Recibimos "min_weight" (del front), lo envíamos en payload si queremos filtrar de menor a mayor.
 
 export function filterByWeight(payload) {
   return {
     type: FILTER_BY_WEIGHT,
+    payload,
+  };
+}
+
+//Damos la "orden" filtrar los dogs por altura. Recibimos "short" o "tall" (del front), lo envíamos en payload si queremos filtrar de menor a mayor.
+export function filterByHeight(payload) {
+  return {
+    type: FILTER_BY_HEIGHT,
     payload,
   };
 }
@@ -137,17 +145,3 @@ export function FilterByTemperament(payload) {
     payload,
   };
 }
-
-//*CREAR
-
-//Damos la "orden" quitar los detalles.
-
-//Damos la "orden" filtrar los dogs por altura, pasamos ---.
-export function filterByHeight(payload) {
-  return {
-    type: 'FILTER_BY_HEIGHT',
-    payload,
-  };
-}
-
-//DELETE DOG (CREAR)

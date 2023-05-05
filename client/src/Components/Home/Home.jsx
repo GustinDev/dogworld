@@ -8,6 +8,7 @@ import {
   filterByName,
   filterCreatedDog,
   filterByWeight,
+  filterByHeight,
   FilterByTemperament,
   getAllDogs,
   getTemperaments,
@@ -99,7 +100,7 @@ export default function Home() {
     setOrden(`Order: ${e.target.value}`);
   }
 
-  //2.Despacha la action filterByName y le pasa al reducer una de las opciones: "max_weight" o "min_weight".
+  //2.Despacha la action filterByWeight y le pasa al reducer una de las opciones: "max_weight" o "min_weight".
 
   function handlerFilterWeight(option) {
     dispatch(filterByWeight(option.target.value));
@@ -120,6 +121,14 @@ export default function Home() {
   function handlerFilterCreated(option) {
     dispatch(filterCreatedDog(option.target.value));
     setCurrentPage(1);
+  }
+
+  //5.Despacha la action filterByHeight y le pasa al reducer una de las opciones: "max_weight" o "min_weight".
+
+  function handlerFilterHeight(option) {
+    dispatch(filterByHeight(option.target.value));
+    setCurrentPage(1);
+    setOrden(`Order: ${option.target.value}`);
   }
 
   //Hace que la pagina no se recargue cuando haya clicks.
@@ -188,6 +197,18 @@ export default function Home() {
                 </option>
                 <option key={2} value='min_weight'>
                   Light - Heavy
+                </option>
+              </select>
+
+              <select onChange={(e) => handlerFilterHeight(e)}>
+                <option disabled selected tabIndex='-1'>
+                  Order by Height
+                </option>
+                <option key={1} value='tall'>
+                  Tall - Short
+                </option>
+                <option key={2} value='short'>
+                  Short - Tall
                 </option>
               </select>
 

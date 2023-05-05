@@ -167,21 +167,28 @@ const reducer = (state = initialState, action) => {
     case FILTER_BY_HEIGHT:
       //Sacamos las alturas de los perros en un array.
       const allHeights = state.allDogs.filter((dog) => dog.height);
-      //Guardamos el filtrado.
+      //Pero están asi:  ["height": "23 - 29", "height": "20 - 22",]
       const filterHeight =
         //Si el payload es "short", vamos de menor a mayor.
         //! DOCUMENTAR
         action.payload === 'short'
-          ? allHeights.sort((a, b) => {
+          ? //Sort toma dos elementos de la lista "allHeights" y los compara para determinar su orden en la lista final.
+            allHeights.sort((a, b) => {
+              //Tomamos dos height de dos objetos, A y B.
+              //Dividimos esos heigth entre min " - " max.
+              //Y los convertimos en numero.
               const [minA, maxA] = a.height
                 .split(' - ')
                 .map((h) => parseInt(h));
+              //EJ A: [23, 29]
               const [minB, maxB] = b.height
                 .split(' - ')
                 .map((h) => parseInt(h));
+              //EJ B: [20 - 22]
+              //Comparamos los min y max height de los objetos A y B.
               return minA - minB || maxA - maxB;
             })
-          : //Si no, vamos de mayor a menor. Lo revertimos.
+          : //Si no ("tall"), vamos de mayor a menor.
             allHeights.sort((a, b) => {
               const [minA, maxA] = a.height
                 .split(' - ')

@@ -19,6 +19,7 @@ export default function Paginate({ numberOfDogsPerPage, dogs, paginado }) {
       {/* Esperamos los numeros de página, y mapeamos cada numero en un li. */}
       {/* El paginado(n) convierte al numero a clickear al numero de página actual. */}
       {/* Y actualiza la página, con el setCurrentPage(pageNumber) */}
+      {/TODO* TENEMOS QUE CAMBIAR EL COLOR DE PAGINATE */}
       {pageNumbers?.map((number) => {
         return (
           <button

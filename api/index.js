@@ -24,7 +24,7 @@ const { conn } = require('./src/db.js');
 //force: true (restart DB).
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
   console.log('DB conectada, master');
   server.listen(3001, () => {
     console.log('Listening at port 3001.'); // eslint-disable-line no-console

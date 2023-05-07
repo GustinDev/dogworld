@@ -6,6 +6,7 @@ import { getDog, clearDetail } from '../../redux/actions/actions';
 //CSS
 import dogGif from '../../images/dogif.gif';
 
+//Props es lo que está en la URL, (de aqui sacamos el ID).
 export default function Detail(props) {
   //useDispatch: Accedemos a los dipatch (estados despachados).
   const dispatch = useDispatch();
@@ -18,14 +19,17 @@ export default function Detail(props) {
   //Pide que se realice una acción específica cada que se cargue la pargina -o se cambie el estado-,
   //Traer la data del dogDetail(actions), le pasamos el id.
   //Y que se limpie el dogDetail, después de buscar.
+
   useEffect(() => {
-    //Le pasamos el ID de params (url), para que sepa que objeto traer del back.
+    //Le pasamos el ID de props.params (url), para que sepa que objeto traer del back.
     dispatch(getDog(props.match.params.id));
     return dispatch(clearDetail());
     // eslint-disable-next-line
   }, [dispatch]);
 
-  //TODO: Accedemos con a la data con dogDetail[0] porque es un array de objetos, que solo contiene uno. Lo pasamos a otro var para no tener que hacerlo siempre.
+  //* Después de ejecutar el action, el estado dogDetail se llena con el JSON que el back nos dio (según el ID).
+  //* Accedemos  a la data con dogDetail[0] porque es un array de objetos, que solo contiene uno. Lo pasamos a otro var para no tener que hacerlo siempre.
+  //*Con dogDetailFinal accedemos al dog normalmente, como un objeto (similar a lo que vemos en dogs/id).
 
   let dogDetailFinal = dogDetail[0];
   // console.log(dogDetailFinal);
@@ -55,13 +59,16 @@ export default function Detail(props) {
           <div className={style.detail_text_container}>
             <div className={style.detail_text}>
               <h1> Name: {dogDetailFinal.name}</h1>
+
               <div className={style.detail_text_specs}>
+                <h2> ID: {dogDetailFinal.id}</h2>
                 <h2> Lifespan: {dogDetailFinal.lifespan}</h2>
                 <h2> Height: {dogDetailFinal.height} cm.</h2>
                 <h2>
                   Weight: {dogDetailFinal.weight_minimun} -
                   {dogDetailFinal.weight_maximun} kg.
                 </h2>
+
                 <div className={style.detail_temp}>
                   <div className={style.detail_temp}>
                     <h2>Temperaments:</h2>

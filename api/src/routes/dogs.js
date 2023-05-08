@@ -15,6 +15,7 @@ const { Dog, Temperament } = require('../db');
 //*ROUTES:
 
 //GET ALL DOGs - GET QUERY ?NAME=
+//http://localhost:3001/dogs - http://localhost:3001/dogs?name=la
 
 router.get('/dogs', async (req, res) => {
   //Comprobamos si hay name - query.
@@ -43,6 +44,7 @@ router.get('/dogs', async (req, res) => {
 });
 
 //GET ID
+//http://localhost:3001/dogs/11
 
 router.get('/dogs/:idRaza', async (req, res) => {
   //Sacamos el ID de params.
@@ -59,6 +61,7 @@ router.get('/dogs/:idRaza', async (req, res) => {
 });
 
 //GET ALL - Temperaments (Guardamos los Temp en la DB).
+//http://localhost:3001/temperaments
 
 router.get('/temperaments', async (req, res) => {
   try {
@@ -93,6 +96,7 @@ router.get('/temperaments', async (req, res) => {
 });
 
 //POST - Dogs (Tabla Temperament tiene que estar llena).
+//http://localhost:3001/dogs (Le ponemos post y mandamos data por JSON)
 
 router.post('/dogs', async (req, res) => {
   // Pasamos los datos del dog por body.

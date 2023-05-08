@@ -12,7 +12,7 @@ const { getAllData } = require('../controller/getAllData');
 const { Dog, Temperament } = require('../db');
 //const { Sequelize, Model } = require('sequelize');
 
-//ROUTES:
+//*ROUTES:
 
 //GET ALL DOGs - GET QUERY ?NAME=
 

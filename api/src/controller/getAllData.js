@@ -6,6 +6,8 @@ const axios = require('axios');
 //Importamos las tablas:
 const { Dog, Temperament } = require('../db');
 
+//Aqui hacemos el manejo de información. Traemos la data del API y DB, las juntamos y las guardamos.
+
 //API.
 const getApiData = async () => {
   //Traemos la data con axios.

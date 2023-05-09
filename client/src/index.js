@@ -10,6 +10,9 @@ import { Provider } from 'react-redux';
 import store from './redux/store/store';
 import { BrowserRouter } from 'react-router-dom';
 
+//Le proveemos a nuestra app.js o main.jx acceso a nuestra store (los envolvemos en un Stado Global).
+//También los envolvemos en Browser Router para crear la rutas.
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

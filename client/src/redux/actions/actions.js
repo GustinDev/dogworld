@@ -28,7 +28,7 @@ import {
 
 //* DOGS DATA
 
-//Tomamos la data de todos los dogs de /dogs y la despachamos.
+//Tomamos la data de todos los dogs de /dogs y la despachamos por payload.
 export function getAllDogs() {
   return async function (dispatch) {
     var json = await axios.get('http://localhost:3001/dogs');
@@ -39,7 +39,7 @@ export function getAllDogs() {
   };
 }
 
-//Recibimos el ID (front), lo sumamos a la URL, adquirimos la data de /Id (back) y la despachamos.
+//Recibimos el ID (front), lo sumamos a la URL, adquirimos la data de /Id (back) y la despachamos por payload.
 
 export function getDog(id) {
   return async function (dispatch) {
@@ -55,7 +55,7 @@ export function getDog(id) {
   };
 }
 
-//Recibimos el name (front). Lo sumamos a la URL, adquirimos la data de /dog?name= (back) y la despachamos.
+//Recibimos el name (front). Lo sumamos a la URL, adquirimos la data de /dog?name= (back) y la despachamos por payload.
 
 export function getDogName(name) {
   return async function (dispatch) {
@@ -79,6 +79,8 @@ export function postDog(data) {
     return posted;
   };
 }
+
+//Le pasamos el nombre de la action (sirve para reiniciar el estado de dogDetail).
 
 export function clearDetail() {
   return {

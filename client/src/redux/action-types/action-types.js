@@ -1,3 +1,5 @@
+//Definimos los nombres (de las acciones a realizar) y las convertimos en variables.
+
 export const GET_ALL_DOGS = 'GET_ALL_DOGS';
 export const GET_ALL_TEMPERAMENTS = 'GET_ALL_TEMPERAMENTS';
 export const GET_DOG_NAME = 'GET_DOG_NAME';

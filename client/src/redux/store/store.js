@@ -12,4 +12,7 @@ const store = createStore(
   composeEnhancer(applyMiddleware(thunkMiddleware))
 );
 
+//Los middlewares se utilizan para mejorar la funcionalidad y capacidad de gestión de la store de Redux.
+// thunkMiddleware permite que se realicen acciones asíncronas en las acciones de Redux, applyMiddleware lo conecta al proceso de la store.
+
 export default store;

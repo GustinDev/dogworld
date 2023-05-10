@@ -388,9 +388,7 @@ export default function Form() {
             inputValue.minimun_weight <= 0 ||
             inputValue.maximun_weight <= 0 ||
             inputValue.lifespan <= 0 ||
-            //Si los minimun son mayores que los maximun.
-            inputValue.minimun_height >= inputValue.maximun_height ||
-            inputValue.minimun_weight >= inputValue.maximun_weight ||
+            //Si lno hay temperaments
             !inputValue.temperament.length) ? (
             <div className={style.progress}>
               Dog creation is still in progress (errors found).

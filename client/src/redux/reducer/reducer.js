@@ -13,7 +13,6 @@ import {
   FILTER_CREATED_DOG,
   CLEAR_DETAIL,
   POST_DOG,
-  //CREAR
 } from '../action-types/action-types';
 
 //Estados iniciales:

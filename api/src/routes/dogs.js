@@ -78,9 +78,10 @@ router.get('/temperaments', async (req, res) => {
     //Le quitamos los espacios que quedaron.
     //Quedan: ["Curious", "Playful","Independent", "Happy"]
     let temperamentFinal = await temperamentSplit.map((s) => s.trim());
+    //Quitamos espacion en blanco con trim.
     //Ya tenemos el array final. Ahora, los guardamos en la tabla Temperaments:
     await temperamentFinal.forEach(async (temperament) => {
-      //temperament.length > 0
+      //Si hay temperaments en el array.
       if (temperament.length > 0) {
         await Temperament.findOrCreate({
           where: { name: temperament },

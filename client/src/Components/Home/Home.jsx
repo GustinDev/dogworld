@@ -22,6 +22,7 @@ import style from './Home.module.css';
 import dogGif from '../../images/dogif.gif';
 
 export default function Home() {
+  //TODO: PASE EL PI!
   //TODO: ¿Cómo traer la data?
   //TODO: 1. Accediendo al Estado Global con useSelector.
   //TODO: 2. Accediendo al la función creado por action.
@@ -273,6 +274,7 @@ export default function Home() {
                   <Card
                     key={dogPerPage.id}
                     id={dogPerPage.id}
+                    lifespan={dogPerPage.lifespan}
                     image={dogPerPage.image}
                     name={dogPerPage.name}
                     temperament={dogPerPage.temperament}

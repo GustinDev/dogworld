@@ -7,7 +7,6 @@ import style from '../Card/Card.module.css';
 export default function Card({
   image,
   name,
-  lifespan,
   temperament,
   weight_minimun,
   weight_maximun,
@@ -28,7 +27,6 @@ export default function Card({
         <h3 className={style.card_weight}>
           Weight: {weight_minimun} kg - {weight_maximun} kg.
         </h3>
-        <h3 className={style.card_weight}>Life: {lifespan}.</h3>
         <div className={style.card_text}>
           <div className={style.card_title}>
             <h1>{name}</h1>

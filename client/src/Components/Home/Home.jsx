@@ -274,7 +274,6 @@ export default function Home() {
                   <Card
                     key={dogPerPage.id}
                     id={dogPerPage.id}
-                    lifespan={dogPerPage.lifespan}
                     image={dogPerPage.image}
                     name={dogPerPage.name}
                     temperament={dogPerPage.temperament}

@@ -20,16 +20,6 @@ WHITE: #FFFFFF
 
 */
 
-.container {
-  display: flex;
-  background-color: #cce3f5;
-  overflow: hidden;
-  justify-content: space-evenly;
-  justify-items: end;
-  width: 100vw;
-  height: 100vh;
-}
-
 .text {
   text-align: center;
   color: #3598dc;

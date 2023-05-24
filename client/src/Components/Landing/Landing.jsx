@@ -7,7 +7,7 @@ import svg from '../../images/wavesNegative.svg';
 
 function Landing() {
   return (
-    <div className={style.container}>
+    <div className='flex bg-landingb justify-evenly justify-items-end w-screen h-screen'>
       <div className={style.text}>
         <h1 className={style.title}>DogWorld</h1>
         <p>by GustinDev</p>

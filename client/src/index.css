@@ -6,6 +6,12 @@ PINK: #ED668E
 WHITE: #FFFFFF 
 */
 
+/* Tailwind CSS */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Ponemos esto aqui para que cubra toda la pantalla */
 
 html,

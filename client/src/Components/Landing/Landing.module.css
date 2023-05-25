@@ -20,90 +20,9 @@ WHITE: #FFFFFF
 
 */
 
-.text {
-  text-align: center;
-  color: #3598dc;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 600px;
-  margin-left: 200px;
-  margin-top: -100px;
-}
-
 .title {
   font-size: 120px;
   font-family: 'Lilita One', cursive;
-  margin: 0px;
   text-shadow: 5px 1px 2px #1875b3;
   letter-spacing: 2px;
-}
-
-.text p {
-  color: #3598dc;
-  font-size: 25px;
-  font-family: 'Lilita One', cursive;
-  margin-top: 2px;
-  text-shadow: 1px 1px 1px #0d629b;
-  letter-spacing: 0.5px;
-}
-
-.image {
-  display: flex;
-  align-items: flex-end;
-  width: 900px;
-}
-
-.image img {
-  width: 750px;
-  height: 800px;
-  display: flex;
-  padding-left: 100px;
-}
-/* 
-BUTTON */
-
-.buttonOne {
-  font-family: 'Lilita One', cursive;
-  margin-top: -550;
-  display: inline-block;
-  outline: 0;
-  cursor: pointer;
-  border: 0px solid #000;
-  border-radius: 10px;
-  color: #fff;
-  background: #0d82d1;
-  font-size: 20px;
-  font-weight: 00;
-  line-height: 28px;
-  padding: 12px 20px;
-  text-align: center;
-  transition-duration: 0.15s;
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 3px 3px 3px #0d629b;
-}
-
-.buttonOne:hover {
-  color: whitesmoke;
-  background-color: #ed668e;
-  box-shadow: 3px 3px 3px #bb4266;
-}
-
-/* SHAPE */
-
-.waves {
-  margin-top: -80px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 425px;
-  width: 1900px;
-  /* width: 1903px; */
-  line-height: 0;
-  margin-bottom: -30px;
-  opacity: 1;
-
-  /* transform: scaleX(-1); */
 }

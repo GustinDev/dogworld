@@ -145,15 +145,8 @@ export default function Home() {
         <div className={style.Navbar}>
           <div className='left_nav'>
             {/* LINK LANDING */}
-            <Link className={style.titleContainer} to='/home'>
-              <h1
-                onClick={(e) => {
-                  handleClick(e);
-                }}
-                className={style.title}
-              >
-                DogWorld
-              </h1>
+            <Link className={style.titleContainer} to='/'>
+              <h1 className={style.title}>DogWorld</h1>
             </Link>
           </div>
 

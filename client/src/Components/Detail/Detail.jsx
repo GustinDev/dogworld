@@ -1,4 +1,3 @@
-import style from './Detail.module.css';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -43,11 +42,12 @@ export default function Detail(props) {
   });
 
   return (
-    <div className={style.detail_container}>
+    <div>
       {/* Si el estado dogDetail no está vacio (y mientras se carga), generamos esto: */}
       {Object.keys(dogDetail).length ? (
-        <div className={style.detail_card}>
+        <div className='flex bg-cardb rounded-lg shadow-lg shadow-lightblue'>
           <img
+            className='w-[800px] h-[600px] rounded-tl-lg rounded-bl-lg'
             src={
               dogDetailFinal.image
                 ? dogDetailFinal.image
@@ -56,11 +56,14 @@ export default function Detail(props) {
             }
             alt={dogDetailFinal.name}
           />
-          <div className={style.detail_text_container}>
-            <div className={style.detail_text}>
-              <h1> Name: {dogDetailFinal.name}</h1>
+          <div>
+            <div className='font-roboto p-5 w-[500px] text-backgroundw'>
+              <h1 className='text-[30px] font-lilita text-start'>
+                {' '}
+                Name: {dogDetailFinal.name}
+              </h1>
 
-              <div className={style.detail_text_specs}>
+              <div className='w-[350px] text-start font-roboto text-[20px] font-bold'>
                 <h2> ID: {dogDetailFinal.id}</h2>
                 <h2> Lifespan: {dogDetailFinal.lifespan}</h2>
                 <h2> Height: {dogDetailFinal.height} cm.</h2>
@@ -69,29 +72,43 @@ export default function Detail(props) {
                   {dogDetailFinal.weight_maximun} kg.
                 </h2>
 
-                <div className={style.detail_temp}>
-                  <div className={style.detail_temp}>
-                    <h2>Temperaments:</h2>
-                    <h3>
+                <div>
+                  <div>
+                    <h2 className='text-[25px] font-lilita font-normal my-2'>
+                      Temperaments:
+                    </h2>
+                    <ul className='list-none'>
                       {tempFinal?.map((temp, index) => {
-                        return <li key={index}>🌍{temp}</li>;
+                        return (
+                          <li className='text-[20px] ' key={index}>
+                            🌍{temp}
+                          </li>
+                        );
                       })}
-                    </h3>
+                    </ul>
                   </div>
                 </div>
               </div>
 
               <Link to='/home'>
-                <button className={style.detail_button}>Go Back!</button>
+                <button className='font-lilita inline-block cursor-pointer border-0 rounded-[10px] text-white bg-blue-500 text-[25px] leading-28 px-[30px] py-[5px] text-center mt-[30px] tracking-wider hover:bg-hoverbtn shadow-md '>
+                  Go Back!
+                </button>
               </Link>
             </div>
           </div>
         </div>
       ) : (
         // Mientras no cargue, creamos un loading
-        <div className={style.loading_container}>
-          <h1>LOADING!</h1>
-          <img src={dogGif} alt='gif' />
+        <div className='flex justify-center items-center flex-col'>
+          <h1 className='text-[50px] text-lightblue font-lilita tracking-wide mt-[20px] mb-[-60px]'>
+            LOADING!
+          </h1>
+          <img
+            className='w-[500px] h-[500px] mt-[-80px]'
+            src={dogGif}
+            alt='gif'
+          />
         </div>
       )}
     </div>

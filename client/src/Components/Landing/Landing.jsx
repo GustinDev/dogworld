@@ -10,7 +10,7 @@ function Landing() {
         <h1 className='text-[60px] sm:text-[80px] font-lilita xl:text-[120px]'>
           DogWorld
         </h1>
-        <p className='text-[25px] font-lilita bg-current'>by GustinDev</p>
+        <p className='text-[25px] font-lilita'>by GustinDev</p>
         <Link to='/home'>
           <button className='font-lilita inline-block cursor-pointer border-0 rounded-[10px] text-white bg-blue-500 text-[25px] leading-28 px-[30px] py-[5px] text-center mt-[30px] tracking-wide hover:bg-hoverbtn shadow-md'>
             Let's Go!

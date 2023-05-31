@@ -18,7 +18,7 @@ export default function Card({
   });
 
   return (
-    <div className='w-[375px] h-[585px] font-roboto bg-cardb m-5 rounded-2xl shadow-lg shadow-cardshadow transition duration-100 transform hover:scale-105 '>
+    <div className='w-[375px] h-[585px] font-roboto bg-cardb m-5 rounded-2xl shadow-lg shadow-lightblue transition duration-100 transform hover:scale-105 '>
       <Link to={`/home/${id}`} style={{ textDecoration: 'none' }}>
         <div className='w-[375px] h-[260px]'>
           <img

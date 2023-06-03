@@ -22,7 +22,6 @@ import style from './Home.module.css';
 import dogGif from '../../images/dogif.gif';
 
 export default function Home() {
-  //TODO: PASE EL PI!
   //TODO: ¿Cómo traer la data?
   //TODO: 1. Accediendo al Estado Global con useSelector.
   //TODO: 2. Accediendo al la función creado por action.

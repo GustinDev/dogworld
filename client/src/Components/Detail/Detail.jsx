@@ -45,9 +45,9 @@ export default function Detail(props) {
     <div>
       {/* Si el estado dogDetail no está vacio (y mientras se carga), generamos esto: */}
       {Object.keys(dogDetail).length ? (
-        <div className='flex bg-cardb rounded-lg shadow-lg shadow-lightblue'>
+        <div className='flex flex-col lg:flex-row bg-cardb rounded-lg shadow-lg shadow-lightblue justify-center'>
           <img
-            className='w-[800px] h-[600px] rounded-tl-lg rounded-bl-lg'
+            className='w-[350px] h-[200px]  md:w-[600px] md:h-[400px] lg:w-[800px] lg:h-[600px] rounded-tl-lg rounded-bl-lg'
             src={
               dogDetailFinal.image
                 ? dogDetailFinal.image
@@ -57,7 +57,7 @@ export default function Detail(props) {
             alt={dogDetailFinal.name}
           />
           <div>
-            <div className='font-roboto p-5 w-[500px] text-backgroundw'>
+            <div className='font-roboto p-5 w-[350px] md:w-[500px] text-backgroundw'>
               <h1 className='text-[30px] font-lilita text-start'>
                 {' '}
                 Name: {dogDetailFinal.name}

@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 //Actions.
 import { getDogName } from '../../redux/actions/actions';
 //CSS.
-import style from './SearchBar.module.css';
 
 export default function SearchBar({ paginado }) {
   //useDispatch: Accedemos a los dipatch (estados despachados).
@@ -39,18 +38,18 @@ export default function SearchBar({ paginado }) {
   };
 
   return (
-    <div className={style.search_container}>
-      <form className={style.search_form}>
+    <div className='w-[300px] md:w-[600px] lg:h-[68px] p-2  flex justify-center m-auto'>
+      <form className='flex flex-row my-0 md:mt-5'>
         <input
-          className={style.search_input}
+          className='w-[250px] md:w-[500px]  lg:mt-0 md:h-[30px]  lg:h-[30px] outline-bluetext b-2 rounded-lg'
           type='text'
           //Cada que cambia, se ejecuta handleInput(e)
           onChange={(e) => handleInput(e)}
           value={searchDoggy}
-          placeholder='Search for any dog in the world...'
+          placeholder='Search for any dog in the world!'
         />
         <button
-          className={style.search_button}
+          className='font-lilita inline-block cursor-pointer border-0 rounded-[10px] text-white bg-blue-500 text-[15px] leading-28 px-[20px] py-[5px] mx-2 text-center tracking-wider hover:bg-hoverbtn shadow-md '
           //Cuando se hace submit, ejecuta handleSubmit(e)
           type='submit'
           onClick={(e) => handleSubmit(e)}

@@ -18,7 +18,7 @@ import Card from '../Card/Card';
 import SearchBar from '../SearchBar/SearchBar';
 import Paginate from '../Paginated/Paginated';
 //CSS
-import style from './Home.module.css';
+
 import dogGif from '../../images/dogif.gif';
 
 export default function Home() {
@@ -137,19 +137,27 @@ export default function Home() {
   }
 
   return (
-    <div className={style.background}>
+    <div className='h-screen w-screen'>
       {/* NAV */}
 
-      <header>
-        <div className={style.Navbar}>
+      <header className='flex flex-col justify-around items-center bg-bluenav pb-4 px-4'>
+        <div className='flex flex-col lg:flex-row justify-between items-center bg-bluenav w-full'>
           <div className='left_nav'>
             {/* LINK LANDING */}
-            <Link className={style.titleContainer} to='/'>
-              <h1 className={style.title}>DogWorld</h1>
+            <Link to='/'>
+              <h1
+                style={{
+                  textShadow:
+                    '0 1px 2px rgba(0, 0, 0, 0.2), 0 0 0.5em rgba(0, 128, 0, 0.1)',
+                }}
+                className='mt-3 lg:my-0 font-lilita text-[30px] text-white hover:text-hoverbtn h-15 mb-0 md:-mb-5 lg:mb-0'
+              >
+                DogWorld
+              </h1>
             </Link>
           </div>
 
-          <div className='center_nav'>
+          <div className='center_nav w-screen'>
             {/* SEARCHBAR */}
             {/* Le pasamos en que página estamos: "1" */}
             <SearchBar paginado={paginado} />
@@ -157,10 +165,10 @@ export default function Home() {
             {/* Invocamos los handlers */}
             {/* Usamos select y option para mandar los parametros a los reducer */}
 
-            <div className={style.filters}>
+            <div className='w-1/2 m-auto flex flex-col md:flex-row md:w-full flex-wrap justify-center items center'>
               {/* RESTART */}
               <button
-                className={style.restart_button}
+                className=' h-[30px] mx-0 my-auto  font-lilita inline-block cursor-pointer border-0 rounded-[10px] text-white bg-blue-500 text-[20px] leading-28 px-[30px] text-center  tracking-wider hover:bg-hoverbtn shadow-md '
                 onClick={(e) => {
                   handleClick(e);
                 }}
@@ -169,7 +177,10 @@ export default function Home() {
                 Start Again
               </button>
 
-              <select onChange={(e) => handlerFilterName(e)}>
+              <select
+                className='h-[30px] w-[150] flex justify-center font-roboto  text[15px] m-1 rounded-lg shadow-lg shadow-bluetext'
+                onChange={(e) => handlerFilterName(e)}
+              >
                 <option disabled selected tabIndex='-1'>
                   Order by Name
                 </option>
@@ -181,7 +192,10 @@ export default function Home() {
                 </option>
               </select>
 
-              <select onChange={(e) => handlerFilterWeight(e)}>
+              <select
+                className='h-[30px] w-[150] flex justify-center font-roboto  text[15px] m-1 rounded-lg shadow-lg shadow-bluetext'
+                onChange={(e) => handlerFilterWeight(e)}
+              >
                 <option disabled selected tabIndex='-1'>
                   Order by Weight
                 </option>
@@ -193,7 +207,10 @@ export default function Home() {
                 </option>
               </select>
 
-              <select onChange={(e) => handlerFilterHeight(e)}>
+              <select
+                className='h-[30px] w-[150] flex justify-center font-roboto  text[15px] m-1 rounded-lg shadow-lg shadow-bluetext'
+                onChange={(e) => handlerFilterHeight(e)}
+              >
                 <option disabled selected tabIndex='-1'>
                   Order by Height
                 </option>
@@ -205,7 +222,10 @@ export default function Home() {
                 </option>
               </select>
 
-              <select onChange={(e) => handlerFilterCreated(e)}>
+              <select
+                className='h-[30px] w-[150] flex justify-center font-roboto  text[15px] m-1 rounded-lg shadow-lg shadow-bluetext'
+                onChange={(e) => handlerFilterCreated(e)}
+              >
                 <option disabled selected value=''>
                   Order by Source
                 </option>
@@ -220,7 +240,10 @@ export default function Home() {
                 </option>
               </select>
 
-              <select onChange={(e) => handlerFilterTemperament(e)}>
+              <select
+                className='h-[30px] w-[150] flex justify-center font-roboto  text[15px] m-1 rounded-lg shadow-lg shadow-bluetext'
+                onChange={(e) => handlerFilterTemperament(e)}
+              >
                 <option disabled selected value=''>
                   Temperaments
                 </option>
@@ -238,29 +261,28 @@ export default function Home() {
           </div>
 
           <div className='right_nav'>
-            <div className={style.arreglo}>
+            <div>
               {/* LINK CREATE DOG */}
 
               <Link to='/form'>
-                <button className={style.buttonC}>Create a New Dog</button>
+                <button className='font-lilita inline-block cursor-pointer border-0 rounded-[10px] text-white bg-blue-500 text-[20px] leading-28 px-[20px] py-[10px] text-center tracking-wider hover:bg-hoverbtn shadow-md '>
+                  Create a New Dog
+                </button>
               </Link>
             </div>
           </div>
         </div>
       </header>
-      <div className={style.instructions}>
-        <h4>Tip: Click a card to see detailed information! </h4>
-      </div>
 
       {/* BODY - CARDS */}
       {/* DOCUMENTAR  */}
       {/* Si el estado dogs tiene keys (es para ver si ya cargó): */}
       {Object.keys(dogs).length ? (
-        <div className={style.container_cards}>
+        <div className='flex flex-wrap justify-center mt-[20px]'>
           {/* Mapea los dogs por página, entre First y Last (8) */}
           {currentDogsInPage?.map((dogPerPage) => {
             return (
-              <div className={style.card_container} key={dogPerPage.id}>
+              <div className='' key={dogPerPage.id}>
                 {
                   // Llenamos la card, con la info de los dogs.
                   <Card
@@ -279,9 +301,15 @@ export default function Home() {
         </div>
       ) : (
         // Mientras no cargue, creamos un loading
-        <div className={style.loading_container}>
-          <h1>LOADING!</h1>
-          <img src={dogGif} alt='gif' />
+        <div className='flex justify-center items-center flex-col'>
+          <h1 className='text-[50px] text-lightblue font-lilita tracking-wide mt-[20px] mb-[-60px]'>
+            LOADING!
+          </h1>
+          <img
+            className='w-[500px] h-[500px] mt-[-80px]'
+            src={dogGif}
+            alt='gif'
+          />
         </div>
       )}
 

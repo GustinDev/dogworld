@@ -1,480 +1,270 @@
-//Standard
-import React, { useEffect, useState } from 'react';
+//Standard - New
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 //Actions
 import { postDog, getTemperaments } from '../../redux/actions/actions';
 //CSS
-import style from './Form.module.css';
 
 //Validamos la data ingresada.
-
-const validationData = (input) => {
-  //Guardamos los errores.
-  let errorsContainer = {};
-
-  //Si hay un error se guarda en el obj errorsContainer.
-  //EJ: errorContainer.errorName.
-  //Luego verificamos si hay errores por el nombre. Y si los hay (key), mostramos el mensaje (value)
-
-  //Errors List - Prompt
-
-  //NAME
-  if (!input.name) {
-    errorsContainer.name = 'There must be a name.';
-  }
-
-  if (input.name && !/^([a-zA-Z ]){2,30}$/.test(input.name)) {
-    errorsContainer.name2 = 'The name only can contain letters an spaces.';
-  }
-
-  //Height - Weight < 0
-
-  if (!input.minimun_height || input.minimun_weight <= 0) {
-    errorsContainer.minimun_height0 =
-      'The minimun height must be a number greater than 0.';
-  }
-
-  if (!input.maximun_height || input.maximun_height <= 0) {
-    errorsContainer.maximun_height0 =
-      'The maximun height must be a number greater than 0.';
-  }
-
-  if (!input.minimun_weight || input.minimun_weight <= 0) {
-    errorsContainer.minimun_weight0 =
-      'The minimun weight must be a number greater than 0.';
-  }
-
-  if (!input.maximun_weight || input.maximun_weight <= 0) {
-    errorsContainer.maximun_weight0 =
-      'The maximun weight must be a number greater than 0.';
-  }
-
-  //MENOR NO PUEDE SER MAYOR:
-
-  if (parseInt(input.minimun_height) > parseInt(input.maximun_height)) {
-    errorsContainer.biggerh =
-      "Minimun height shouldn't be greater than maximun height.";
-  }
-
-  if (parseInt(input.minimun_weight) > parseInt(input.maximun_weight)) {
-    errorsContainer.biggerw =
-      "Minimun weight shouldn't be greater than maximun weight.";
-  }
-
-  //Height - Weight - Only numbers.
-
-  if (input.minimun_height) {
-    if (!/^[0-9]*$/) {
-      errorsContainer.height = 'The height can only contain numbers.';
-    }
-  }
-
-  if (input.maximun_height) {
-    if (!/^[0-9]*$/) {
-      errorsContainer.height = 'The height can only contain numbers.';
-    }
-  }
-
-  if (input.minimun_weight) {
-    if (!/^[0-9]*$/) {
-      errorsContainer.minimun_weight = 'The weight can only contain numbers.';
-    }
-  }
-
-  if (input.maximun_weight) {
-    if (!/^[0-9]*$/) {
-      errorsContainer.maximun_weight = 'The weight can only contain numbers.';
-    }
-  }
-
-  //Lifespan.
-
-  if (!input.lifespan || input.lifespan <= 0) {
-    errorsContainer.lifespan = 'The lifespan must be a number greater than 0.';
-  }
-
-  if (input.lifespan) {
-    if (!/^[0-9]*$/) {
-      errorsContainer.lifespan = 'The lifespan can only contain numbers.';
-    }
-  }
-
-  return errorsContainer;
-};
 
 //*FORM
 
 export default function Form() {
-  //useDispatch: Accedemos a los dipatch (estados globales despachados).
   const dispatch = useDispatch();
-
-  // eslint-disable-next-line
   const history = useHistory();
 
-  //Traemos todos los temperaments, selecionando el estado temperaments.
-
   const allTemperaments = useSelector((state) => state.temperaments);
-  //Creamos el objeto errors y lo dejamos como objeto vacio. Guardamos los errors de la verificacion aquí.
-  const [errors, setErrors] = useState({});
 
-  //Creamos un objeto inputValue. En este estado-objeto se guarda todo lo que ingrese el usuario en los input (esto pero actualizado es lo que POSTEAMOS).
-  const [inputValue, setInputValue] = useState({
-    name: '',
-    minimun_height: 0,
-    maximun_height: 0,
-    minimun_weight: 0,
-    maximun_weight: 0,
-    lifespan: 0,
-    temperament: [],
-  });
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    getValues,
+    formState: { errors },
+  } = useForm();
 
   //*CAMBIOS EN INPUT - INGRESO DE DATA
 
-  //?InputValue = Objeto "final" que guarda los datos del input.
-  //?InputClient = Lo que ingresa el usuario en cada input.
-
-  //Tomamos el inputClient y le pasamos el varlor a InputValue.
-  //Cada input tiene un name distinto, que se llena con su value correspondiente.
-  const handleChange = (inputClient) => {
-    //Actualiza el objeto "inputValue" (y sus carácteristicas) con el valor del inputClient.
-    setInputValue({
-      ...inputValue,
-      [inputClient.target.name]: inputClient.target.value,
-      //EJ: lifespan: 5
-    });
-
-    //Pasamos la data (inputValue) por validationData y si tiene errores, llema el objeto errors.
-    setErrors(
-      validationData({
-        ...inputValue,
-        [inputClient.target.name]: inputClient.target.value,
-      })
-    );
-    console.log(inputValue);
-  };
-
   //*EFFECT
-  //Renderiza la action getTemperamets (y trae los temperaments) cada que se inicie el Componente y cada que dispatch se actualice.
+
   useEffect(() => {
     dispatch(getTemperaments());
   }, [dispatch]);
 
   //*TEMPERAMENT (pueden haber varios):
-  //Toma el inputClient (del temperament) y verifica que en inputValue no este el temperament repetido.
-  const handleSelect = (inputClient) => {
-    //Tomamos el temperament seleccionado como value.
-    const { value } = inputClient.target;
 
-    //Si no esta repetido, lo agrega a la var inputValue en la parte de temperament.
-    if (!inputValue.temperament.includes(value)) {
-      //Dejamos los otros inputValue.temperament, en temperament dejamos los que ya estaban y agregamos el nuevo value.
-      setInputValue({
-        ...inputValue,
-        temperament: [...inputValue.temperament, value],
-      });
-    } else {
-      //Si ya está escogido, ponemos un alert.
-      alert('This temperament is already chosen.');
-    }
-    console.log(inputValue.temperament);
+  const handleSelect = (event) => {
+    const selectedTemperament = event.target.value;
+    const currentTemperaments = getValues('temperament') || [];
+    const updatedTemperaments = [...currentTemperaments, selectedTemperament];
+    setValue('temperament', updatedTemperaments, { shouldDirty: true });
   };
 
-  //*BORRAR UN TEMPERAMENT ESCOGIDO:
-  const handleErase = (temp) => {
-    //Vamos dentro de inputValue y filtramos todos los temperaments, dejamos los que no sean borrados (temp).
-    setInputValue({
-      ...inputValue,
-      temperament: inputValue.temperament.filter((d) => d !== temp),
-    });
-  };
+  const formData = watch();
+  console.log(formData);
+
+  //* TEMPERAMENT
 
   //*SUBMIT
-  const handleSubmit = (e) => {
-    //Prevenimos que se puedan submitear los valores de inputValue por default.
-    e.preventDefault();
-    //Despachamos la action POST con el valor del inputValue. El action toma a inputValue como "data" JSON.
-    dispatch(postDog(inputValue));
-    //Confirmamos la creación.
+
+  const onSubmit = (data) => {
+    const formData = {
+      ...data,
+      temperament: Array.isArray(data.temperament)
+        ? data.temperament
+        : [data.temperament],
+    };
+    console.log(formData);
+    dispatch(postDog(formData));
     alert('The dog was created successfully.');
-
-    // Vaciamos a inputValue.
-
-    setInputValue({
-      name: '',
-      minimun_height: 0,
-      maximun_height: 0,
-      minimun_weight: 0,
-      maximun_weight: 0,
-      lifespan: 0,
-      temperament: [],
-    });
-
-    //Volvemos a home.
     history.push('/home');
   };
 
   return (
-    <div className={style.all_container}>
-      {/* TITLE */}
-      <div className={style.form_nav}>
-        <div className={style.form_title}>
-          <h1>LET'S CREATE A NEW DOG!</h1>
-          <h4>Please fill all the information.</h4>
+    <div className='flex justify-start items-center flex-col font-roboto w-[350px]  md:w-[700px] lg:w-[1000px] h-[650px] bg-backgroundf rounded-lg shadow-lightblue shadow-md'>
+      <div className='flex flex-col md:flex-row  mt-10 md:w-[600px]  lg:w-[900px] justify-between align-center'>
+        <div>
+          <h1 className='text-[20px] md:text-[30px] lg:text-[50px] font-lilita text-backgroundw'>
+            LET'S CREATE A NEW DOG!
+          </h1>
+          <h4 className='flex'>Please fill all the information.</h4>
         </div>
         <Link to='/home'>
-          <button className={style.form_home_button}>Go Back!</button>
+          <button className='font-lilita inline-block cursor-pointer border-0 rounded-[10px] text-white bg-blue-500 text-[20px] leading-28 px-[20px] py-[10px] text-center tracking-wider hover:bg-hoverbtn shadow-md '>
+            Go Back!
+          </button>
         </Link>
       </div>
 
-      {/* Container  */}
-      <div className={style.form_card_container}>
-        {/* Le damos el handleSubmit al form */}
+      <div className='flex flex-row '>
         <form
-          className={style.form_description}
-          onSubmit={(e) => handleSubmit(e)}
+          className='flex flex-col justify-center md:justify-start items-center w-[350px] md:w-[500px] mt-5'
+          onSubmit={handleSubmit(onSubmit)}
         >
-          {/* Debe haber una doble relación, por eso value es inputValue (a pesar de asignarlo con useEffect) */}
-          {/* NAME */}
-          <div className={style.item_container}>
-            <h3>Name:</h3>
+          <div className='w-[300px]  md:w-full flex items-start flex-col'>
+            <h3 className='my-3 text-backgroundw'>Name:</h3>
             <input
-              required
-              className={style.item_input_name}
+              className=' w-[200px] md:w-[453px] h-[30px] outline-2 outline-outlinecolor rounded-lg border-2 border-outlinecolor text-medium bg-white  rounded-md px-2 py-2 font-roboto font-semibold'
               type='text'
-              value={inputValue.name}
-              name='name'
-              onChange={(e) => handleChange(e)}
+              {...register('name', {
+                required: 'This field is required.',
+                pattern: {
+                  value: /^[A-Za-z\s]+$/i,
+                  message: 'Name should only contain letters and spaces.',
+                },
+              })}
             />
+            {errors.name && <p className='text-start'>{errors.name.message}</p>}
           </div>
-          {/* Weight */}
-          <div className={style.weight_container}>
-            {/* - WEIGHT */}
-            <div className={style.item_container}>
-              <h3>Minumin Weight (kg): </h3>
+
+          <div className='flex w-[300px] md:w-[500px] flex-col md:flex-row'>
+            <div className='flex  flex-col items-start  w-full'>
+              <h3>Minimum Weight (kg):</h3>
               <input
-                min='0'
-                className={style.item_input}
+                className='w-[200px] h-[30px] outline-2 outline-outlinecolor rounded-lg border-2 border-outlinecolor text-medium bg-white  rounded-md px-2 py-2 font-roboto font-semibold'
                 type='number'
-                value={inputValue.minimun_weight}
-                name='minimun_weight'
-                onChange={(e) => handleChange(e)}
+                {...register('minimun_weight', {
+                  required: 'This field is required.',
+                  min: {
+                    value: 0.1,
+                    message: 'Minimum weight must be greater than 0.',
+                  },
+                  pattern: {
+                    value: /^\d+$/,
+                    message: 'Please enter a valid number.',
+                  },
+                })}
               />
+              {errors.minimun_weight && (
+                <p className='text-start'>{errors.minimun_weight.message}</p>
+              )}
             </div>
 
-            {/* + WEIGHT */}
-            <div className={style.item_container}>
-              <h3>Maximun Weight (kg): </h3>
+            <div className='flex flex-col items-start  w-full'>
+              <h3>Maximum Weight (kg):</h3>
               <input
-                min='0'
-                className={style.item_input}
+                className='w-[200px] h-[30px] outline-2 outline-outlinecolor rounded-lg border-2 border-outlinecolor text-medium bg-white  rounded-md px-2 py-2 font-roboto font-semibold'
                 type='number'
-                value={inputValue.maximun_weight}
-                name='maximun_weight'
-                onChange={(e) => handleChange(e)}
+                {...register('maximun_weight', {
+                  required: 'This field is required.',
+                  min: {
+                    value: 0.1,
+                    message: 'Maximum weight must be greater than 0.',
+                  },
+                  pattern: {
+                    value: /^\d+$/,
+                    message: 'Please enter a valid number.',
+                  },
+                  validate: {
+                    lessThan: (value) =>
+                      parseInt(value) >= parseInt(watch('minimun_weight')) ||
+                      'Maximum weight must be greater than the minimum weight.',
+                  },
+                })}
               />
+              {errors.maximun_weight && (
+                <p className='text-start'>{errors.maximun_weight.message}</p>
+              )}
             </div>
           </div>
-          {/* Height */}
-          <div className={style.height_container}>
-            {/* + HEIGHT */}
-            <div className={style.item_container}>
-              <h3>Minumin Height (cm):</h3>
+
+          <div className='flex w-[300px] md:w-[500px] flex-col md:flex-row'>
+            <div className='flex flex-col items-start  w-full'>
+              <h3>Minimum Height (cm):</h3>
               <input
-                min='0'
-                className={style.item_input}
+                className='w-[200px] h-[30px] outline-2 outline-outlinecolor rounded-lg border-2 border-outlinecolor text-medium bg-white  rounded-md px-2 py-2 font-roboto font-semibold'
                 type='number'
-                value={inputValue.minimun_height}
-                name='minimun_height'
-                onChange={(e) => handleChange(e)}
+                {...register('minimun_height', {
+                  required: 'This field is required.',
+                  min: {
+                    value: 0.1,
+                    message: 'Minimum height must be greater than 0.',
+                  },
+                  pattern: {
+                    value: /^\d+$/,
+                    message: 'Please enter a valid number.',
+                  },
+                })}
               />
+              {errors.minimun_height && (
+                <p className='text-start'>{errors.minimun_height.message}</p>
+              )}
             </div>
 
-            {/* - HEIGHT */}
-            <div className={style.item_container}>
-              <h3>Maximun Height (cm):</h3>
+            <div className='flex flex-col items-start  w-full'>
+              <h3>Maximum Height (cm):</h3>
               <input
-                min='0'
-                className={style.item_input}
+                className='w-[200px] h-[30px] outline-2 outline-outlinecolor rounded-lg border-2 border-outlinecolor text-medium bg-white  rounded-md px-2 py-2 font-roboto font-semibold'
                 type='number'
-                value={inputValue.maximun_height}
-                name='maximun_height'
-                onChange={(e) => handleChange(e)}
+                {...register('maximun_height', {
+                  required: 'This field is required.',
+                  min: {
+                    value: 0.1,
+                    message: 'Maximum height must be greater than 0.',
+                  },
+                  pattern: {
+                    value: /^\d+$/,
+                    message: 'Please enter a valid number.',
+                  },
+                  validate: {
+                    lessThan: (value) =>
+                      parseInt(value) >= parseInt(watch('minimun_height')) ||
+                      'Maximum height must be greater than the minimum height.',
+                  },
+                })}
               />
+              {errors.maximun_height && (
+                <p className='text-start'>{errors.maximun_height.message}</p>
+              )}
             </div>
           </div>
-          {/* TEMP AND LIFESPAN */}
-          <div className={style.tyl_big_container}>
-            <div className={style.tyl_container}>
-              {/* TEMPERAMENTS */}
-              <div className={style.item_container}>
-                <h3>Temperaments: </h3>
+
+          <div>
+            <div className='flex w-[300px] md:w-[500px] flex-col md:flex-row'>
+              <div className='flex flex-col items-start  w-full'>
+                <h3>Temperament: </h3>
                 <select
-                  defaultValue='all'
-                  className={style.item_input}
                   onChange={handleSelect}
+                  className='w-[200px] h-[30px] outline-2 outline-outlinecolor rounded-lg border-2 border-outlinecolor text-medium bg-white  rounded-md px-2 font-roboto font-semibold'
+                  {...register('temperament', {
+                    validate: {
+                      required: (value) =>
+                        value.length > 0 || 'Please choose a temperament.',
+                    },
+                  })}
                 >
-                  <option value='all' disabled>
+                  <option value='' disabled>
                     Choose a temperament.
                   </option>
-                  {/* Mapeamos a los temperaments, mostrar las opciones */}
-                  {allTemperaments.map((temp) => {
-                    return (
-                      <option
-                        value={temp.name}
-                        key={temp.id}
-                        className={style.item_option}
-                      >
-                        {temp.name}
-                      </option>
-                    );
-                  })}
+                  {allTemperaments.map((temp) => (
+                    <option
+                      value={temp.name}
+                      key={temp.id}
+                      className='pl-4 font-bold text-md'
+                    >
+                      {temp.name}
+                    </option>
+                  ))}
                 </select>
+                {errors.temperament && (
+                  <p className='text-start'>{errors.temperament.message}</p>
+                )}
               </div>
 
-              {/* LIFESPAN */}
-              <div className={style.item_container}>
+              <div className='flex flex-col items-start  w-full'>
                 <h3>Lifespan (years):</h3>
                 <input
-                  min='0'
-                  className={style.item_input}
+                  className='w-[200px] h-[30px] outline-2 outline-outlinecolor rounded-lg border-2 border-outlinecolor text-medium bg-white  rounded-md px-2 py-2 font-roboto font-semibold'
                   type='number'
-                  value={inputValue.lifespan}
-                  name='lifespan'
-                  onChange={(e) => handleChange(e)}
+                  {...register('lifespan', {
+                    required: 'This field is required.',
+                    min: {
+                      value: 0.1,
+                      message: 'Lifespan must be greater than 0.',
+                    },
+                    pattern: {
+                      value: /^\d+$/,
+                      message: 'Please enter a valid number.',
+                    },
+                  })}
                 />
-              </div>
-            </div>
-
-            {/* SHOW TEMPERAMENTS
-            Mostramos los temperaments agregados */}
-            <div className={style.temps_container}>
-              {inputValue.temperament.map((temp, i) => {
-                return (
-                  <div key={i++} className={style.temp_item}>
-                    <div className={style.btnh3}> {temp} </div>
-                    <button
-                      className={style.eraserbtn}
-                      onClick={() => handleErase(temp)}
-                    >
-                      X
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* BUTTON CREATE
-          Si existe errors && alguno de los siguientes errores, no mostramos el botón.*/}
-          {/* Si no hay errores, dejamos publicarlo. 
-        Recuerda: errors es el estado que guarda los errores.*/}
-          {console.log(errors)}
-          {errors &&
-          (errors.name ||
-            errors.name2 ||
-            errors.minimun_height ||
-            errors.maximun_height ||
-            errors.minimun_weight ||
-            errors.maximun_weight ||
-            errors.lifespan ||
-            errors.biggerh ||
-            errors.biggerw ||
-            errors.temperament_lenght ||
-            //Si los valores son 0 o menores.
-            !inputValue.name.length ||
-            inputValue.minimun_height <= 0 ||
-            inputValue.maximun_height <= 0 ||
-            inputValue.minimun_weight <= 0 ||
-            inputValue.maximun_weight <= 0 ||
-            inputValue.lifespan <= 0 ||
-            //Si no hay temperaments
-            !inputValue.temperament.length) ? (
-            <div className={style.progress}>
-              Dog creation is still in progress (errors found).
-            </div>
-          ) : (
-            <button className={style.form_button} type='submit'>
-              Create Doggy!
-            </button>
-          )}
-        </form>
-
-        <div className={style.all_error_container}>
-          {/* ERRORES: */}
-          {/* Usamos los nombres con los que se guardan en el objeto errorContainer. */}
-          {/* Si, el objeto errors (del useState) guarda un error con el nombre puesto en validation, se muestra el <p> con el mensaje (que contiene el objeto - error)*/}
-          <div className={style.error_container}>
-            <div>
-              {/* Hacemos que las cosas se muestren por medio de la condicion &&. EJ: Si existe este error && se muesta este mensaje. */}
-              <div className={style.error_title_container}>
-                {(Object.keys(errors).length > 0 ||
-                  !inputValue.temperament.length) && <h2> Control Panel </h2>}
-                {(Object.keys(errors).length > 0 ||
-                  !inputValue.temperament.length) && (
-                  <p>Please have in mind:</p>
+                {errors.lifespan && (
+                  <p className='text-start'>{errors.lifespan.message}</p>
                 )}
-                {/* BUG: Si se seleciona de una, se muestra. */}
-                {Object.keys(errors).length < 1 &&
-                inputValue.temperament.length ? (
-                  <h2> Everything looks good </h2>
-                ) : null}
-              </div>
-
-              <div className={style.error_item_container}>
-                {/* El && es un condicional. 
-                    EJ: Si existe este error && se muestra esto. */}
-                <div>{errors.name && <p>❕ {errors.name} </p>}</div>
-                <div>{errors.name2 && <p>❕ {errors.name2} </p>}</div>
-                {/* Only Contain Numbers */}
-                <div>
-                  {errors.minimun_height && <p>❕ {errors.minimun_height} </p>}
-                </div>
-                <div>
-                  {errors.maximun_height && <p>❕ {errors.maximun_height} </p>}
-                </div>
-                <div>
-                  {errors.minimun_weight && <p>❕ {errors.minimun_weight} </p>}
-                </div>
-                <div>
-                  {errors.maximun_weight && <p>❕ {errors.maximun_weight} </p>}
-                </div>
-                {/* Cannot be 0 */}
-                <div>
-                  {errors.minimun_height0 && (
-                    <p>❕ {errors.minimun_height0} </p>
-                  )}
-                </div>
-                <div>
-                  {errors.maximun_height0 && (
-                    <p>❕ {errors.maximun_height0} </p>
-                  )}
-                </div>
-                <div>
-                  {errors.minimun_weight0 && (
-                    <p>❕ {errors.minimun_weight0} </p>
-                  )}
-                </div>
-                <div>
-                  {errors.maximun_weight0 && (
-                    <p>❕ {errors.maximun_weight0} </p>
-                  )}
-                </div>
-                {/* + BIGGER -  */}
-                <div>{errors.biggerh && <p>❕ {errors.biggerh} </p>}</div>
-                <div>{errors.biggerw && <p>❕ {errors.biggerw} </p>}</div>
-                {/* LIFESPAN */}
-                <div>{errors.lifespan && <p>❕ {errors.lifespan} </p>}</div>
-                {/* Lo hacemos manual. Si en el objeto de respuesta del user no hay temp, mostramos el mensaje. */}
-                <div>
-                  {!inputValue.temperament.length && (
-                    <p>❕ You must select at least one temperament. </p>
-                  )}
-                </div>
               </div>
             </div>
           </div>
-        </div>
+
+          <button
+            className='font-lilita inline-block cursor-pointer border-0 rounded-[10px] text-white bg-blue-500 text-[30px] leading-28 px-[20px] text-center tracking-wider hover:bg-hoverbtn shadow-md mt-4'
+            type='submit'
+          >
+            Create Doggy!
+          </button>
+        </form>
       </div>
     </div>
   );

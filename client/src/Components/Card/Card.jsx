@@ -11,7 +11,7 @@ export default function Card({
   weight_maximun,
   id,
 }) {
-  //Quitamos los espacios, "," y convertimos a los temperamentos en array.
+  //Quitamos los espacios, "," y convertimos a los temperamentos en array. hehe
   let tempSeparated = temperament?.split(',');
   let tempFinal = tempSeparated?.map((temp) => {
     return temp.trim();
@@ -19,7 +19,10 @@ export default function Card({
 
   return (
     <div className='w-[275px] h-[485px] md:w-[375px] md:h-[585px] font-roboto bg-cardb m-5 rounded-2xl shadow-lg shadow-lightblue transition duration-100 transform hover:scale-105 '>
-      <Link to={`/home/${id}`} style={{ textDecoration: 'none' }}>
+      <Link
+        to={`/home/${id}`}
+        style={{ textDecoration: 'none' }}
+      >
         <div className='h-[160px]  md:w-[375px] md:h-[260px]'>
           <img
             src={image}
